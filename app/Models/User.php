@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     public $table = "users";
     protected $fillable = [
-        'name_en','name_ar', 'email', 'password'
+        'name_en','name_ar', 'email', 'username', 'password'
     ];
 
     /**
@@ -32,13 +32,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
     public function country(){
-        $this->belongsTo('App\Models\Country');
+        return $this->belongsTo('App\Models\Country', 'country_id');
     }
     public function careers(){
-        $this->hasMany('App\Models\Career');
+        return $this->hasMany('App\Models\Career');
     }
     public function skills(){
-        $this->hasMany('App\Models\Skill');
+        return $this->hasMany('App\Models\Skill');
     }
     public function getJWTIdentifier()
     {
@@ -46,10 +46,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     public function languages(){
-        $this->belongsToMany('App\Models\Language');
+        return $this->belongsToMany('App\Models\Language');
     }
     public function projects(){
-        $this->hasMany('App\Models\Project');
+        return $this->hasMany('App\Models\Project');
+    }
+    public function userEducations(){
+        return $this->hasMany('App\Models\UserEducation', 'user_id');
     }
 
     public function getJWTCustomClaims()

@@ -10,6 +10,6 @@ class Country extends Model
     protected $fillable = ['name_en','name_ar'];
 
     public function users(){
-        $this->hasMany('App\Models\User');
+        $this->hasMany('App\Models\User', 'country_id');
     }
 }
