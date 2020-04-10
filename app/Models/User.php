@@ -34,10 +34,22 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function country(){
         $this->belongsTo('App\Models\Country');
     }
-
+    public function careers(){
+        $this->hasMany('App\Models\Career');
+    }
+    public function skills(){
+        $this->hasMany('App\Models\Skill');
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();
+    }
+
+    public function languages(){
+        $this->belongsToMany('App\Models\Language');
+    }
+    public function projects(){
+        $this->hasMany('App\Models\Project');
     }
 
     public function getJWTCustomClaims()

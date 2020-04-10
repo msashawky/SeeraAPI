@@ -23,7 +23,17 @@ class CreateWebsitesTable extends Migration
             $table->enum('domain_type', ['normal', 'premium']);
             $table->string('background_image');
             $table->integer('number_of_visits')->default(0);
-            $table->enum('status', ['enabled', 'disabled']);
+            $table->enum('status', ['enabled', 'disabled'])->default('enabled');
+            //social links
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('google_plus')->nullable();
+            $table->string('behance')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('pinterest')->nullable();
+            $table->string('vimeo')->nullable();
             $table->timestamps();
         });
     }

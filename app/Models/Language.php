@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class Language extends Model
 {
-    public $table = "countries";
+    public $table = "languages";
     protected $fillable = ['name_en','name_ar'];
 
     public function users(){
-        $this->hasMany('App\Models\User');
+        $this->belongsToMany('App\Models\User');
     }
 }
