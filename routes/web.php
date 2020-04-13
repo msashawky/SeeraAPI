@@ -47,6 +47,8 @@ $router->group(['prefix' => 'websiteApi'], function () use ($router) {
     $router->get('/{user_id}/educations', 'UserController@userEducations');
     $router->get('/{user_id}/skills', 'UserController@userSkills');
     $router->get('/{user_id}/languages', 'UserController@userLanguages');
+    $router->get('/{user_id}/projects', 'UserController@userProjects');
+    $router->get('/{user_id}/projects/count', 'UserController@userProjectsCount');
     $router->post('/{user_id}/contact', 'UserController@contact');
 });
 
