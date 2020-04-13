@@ -40,6 +40,16 @@ $router->get('/', function () use ($router) {
 //});
 //
 
+//Website
+$router->group(['prefix' => 'websiteApi'], function () use ($router) {
+    $router->get('/{domain}', 'UserController@userData');
+    $router->get('/{user_id}/careers', 'UserController@userCareers');
+    $router->get('/{user_id}/educations', 'UserController@userEducations');
+    $router->get('/{user_id}/skills', 'UserController@userSkills');
+    $router->get('/{user_id}/languages', 'UserController@userLanguages');
+    $router->post('/{user_id}/contact', 'UserController@contact');
+});
+
 #All Auth
 $router->group(['prefix' => 'auth'], function () use ($router) {
 

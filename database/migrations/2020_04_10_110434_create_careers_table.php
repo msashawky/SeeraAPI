@@ -24,7 +24,8 @@ class CreateCareersTable extends Migration
             $table->date('end_date')->nullable();
             $table->enum('employment_status', ['finished', 'not_finished']);
             $table->string('role');
-            $table->text('description')->nullable();
+            $table->text('description_ar')->nullable();
+            $table->text('description_en')->nullable();
             $table->timestamps();
         });
     }
