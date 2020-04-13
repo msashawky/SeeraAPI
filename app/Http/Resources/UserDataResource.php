@@ -19,11 +19,13 @@ class UserDataResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'gender' => $this->gender,
             'martial_status' => $this->martial_status,
-            'job_title' => $this->job_title,
-            'biography' => $this->biography,
+            'job_title_ar' => $this->job_title_ar,
+            'job_title_ar' => $this->job_title_en,
+            'biography_ar' => $this->biography_ar,
+            'biography_en' => $this->biography_en,
             'career_started_at' => $this->career_started_at,
             'country_en' => $this->country->name_en,
-            'country_ar' => $this->country->name_ar
+//            'country_ar' => $this->country->name_ar
 //            'photo' =>isset($this->photo) ? dashboardUrl() . 'upload_images/activities/'. $this->photo  : null,
         ];
     }

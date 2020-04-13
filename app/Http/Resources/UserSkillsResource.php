@@ -12,6 +12,7 @@ class UserSkillsResource extends JsonResource
     {
         return [
             'skill' => $this->skill,
+            'skill_percentage' => $this->skill_percentage
         ];
     }
 

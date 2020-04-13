@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\UserEducationsResource;
+use App\Http\Resources\UserLanguagesResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
@@ -43,6 +44,13 @@ class UserController extends Controller
         if(count($skills) > 0)
             return $this->apiResponse(UserSkillsResource::collection($skills));
         return $this->notFoundResponse("skills not found");
+    }
+
+    public function userLanguages($user_id){
+        $languages = $this->userRepository->getUserLanguages($user_id);
+        if(count($languages) > 0)
+            return $this->apiResponse(UserLanguagesResource::collection($languages));
+        return $this->notFoundResponse("languages not found");
     }
 
     public function contact(Request $request, $user_id){

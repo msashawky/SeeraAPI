@@ -12,4 +12,7 @@ class Language extends Model
     public function users(){
         $this->belongsToMany('App\Models\User');
     }
+    public function userLanguage(){
+        return $this->hasOne('App\Models\UserLanguage');
+    }
 }

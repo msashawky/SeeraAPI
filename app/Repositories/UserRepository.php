@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Career;
 use App\Models\UserEducation;
 use App\Models\Skill;
+use App\Models\UserLanguage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\ExpiredException;
@@ -30,14 +31,16 @@ class UserRepository implements UserRepositoryInterface
     private $career;
     private $userEducation;
     private $skill;
+    private $userLanguage;
 
 
-    public function __construct(User $user, Career $career, UserEducation $userEducation, Skill $skill)
+    public function __construct(User $user, Career $career, UserEducation $userEducation, Skill $skill, UserLanguage $userLanguage)
     {
         $this->user = $user;
         $this->career = $career;
         $this->userEducation = $userEducation;
         $this->skill = $skill;
+        $this->userLanguage = $userLanguage;
     }
 
     public function getUserData($domain){
@@ -53,6 +56,10 @@ class UserRepository implements UserRepositoryInterface
 
     public function getUserSkills($user_id){
         return $this->skill->where('user_id', $user_id)->get();
+    }
+
+    public function getUserLanguages($user_id){
+        return $this->userLanguage->where('user_id', $user_id)->with('languageLevel')->get();
     }
 
     public function validateContactFormData(Request $request){

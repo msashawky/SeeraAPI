@@ -19,7 +19,8 @@ class UserCareersResource extends JsonResource
             'end_date' => $this->end_date,
             'employment_status' => $this->employment_status,
             'role' => $this->role,
-            'description' => $this->description,
+            'description_ar' => $this->description_ar,
+            'description_en' => $this->description_en,
         ];
     }
 

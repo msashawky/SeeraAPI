@@ -26,8 +26,10 @@ class CreateUsersTable extends Migration
             $table->integer('country_id')->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('countries');
             $table->string('city')->nullable();
-            $table->string('job_title')->nullable();
-            $table->string('biography')->nullable();
+            $table->string('job_title_ar')->nullable();
+            $table->string('job_title_en')->nullable();
+            $table->string('biography_ar')->nullable();
+            $table->string('biography_en')->nullable();
             $table->string('photo')->nullable();
             $table->date('career_started_at')->nullable();
             $table->timestamps();
