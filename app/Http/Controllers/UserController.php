@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Http\Resources\UserEducationsResource;
 use App\Http\Resources\UserLanguagesResource;
+use App\Http\Resources\UserMobilesResource;
+use App\Http\Resources\UserProjectsCountResource;
+use App\Http\Resources\UserProjectsResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
@@ -23,6 +26,13 @@ class UserController extends Controller
         if($data)
             return $this->apiResponse(UserDataResource::make($data));
         return $this->notFoundResponse("user not found");
+    }
+
+    public function userMobiles($user_id){
+        $mobiles = $this->userRepository->getUserMobiles($user_id);
+        if(count($mobiles) > 0)
+            return $this->apiResponse(UserMobilesResource::collection($mobiles));
+        return $this->notFoundResponse("careers not found");
     }
 
     public function userCareers($user_id){
@@ -51,6 +61,20 @@ class UserController extends Controller
         if(count($languages) > 0)
             return $this->apiResponse(UserLanguagesResource::collection($languages));
         return $this->notFoundResponse("languages not found");
+    }
+
+    public function userProjects($user_id){
+        $projects = $this->userRepository->getUserProjects($user_id);
+        if(count($projects) > 0)
+            return $this->apiResponse(UserProjectsResource::collection($projects));
+        return $this->notFoundResponse("languages not found");
+    }
+
+    public function userProjectsCount($user_id){
+        $data = $this->userRepository->getUserProjectsCount($user_id);//dd($data);
+        if($data)
+            return response()->json(['projects_count' => $data]);//$this->apiResponse(UserProjectsCountResource::make($data));
+        return $this->notFoundResponse("projects not found");
     }
 
     public function contact(Request $request, $user_id){

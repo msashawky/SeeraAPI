@@ -14,6 +14,8 @@ use App\Models\Career;
 use App\Models\UserEducation;
 use App\Models\Skill;
 use App\Models\UserLanguage;
+use App\Models\Project;
+use App\Models\Mobile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\ExpiredException;
@@ -32,19 +34,27 @@ class UserRepository implements UserRepositoryInterface
     private $userEducation;
     private $skill;
     private $userLanguage;
+    private $project;
+    private $mobile;
 
 
-    public function __construct(User $user, Career $career, UserEducation $userEducation, Skill $skill, UserLanguage $userLanguage)
+    public function __construct(User $user, Career $career, UserEducation $userEducation, Skill $skill, UserLanguage $userLanguage,
+Project $project, Mobile $mobile)
     {
         $this->user = $user;
         $this->career = $career;
         $this->userEducation = $userEducation;
         $this->skill = $skill;
         $this->userLanguage = $userLanguage;
+        $this->project = $project;
+        $this->mobile = $mobile;
     }
 
     public function getUserData($domain){
-        return $this->user->where('username','LIKE', $domain)->with('country')->first();
+        return $this->user->where('username','LIKE', $domain)->with(['country', 'website'])->first();
+    }
+    public function getUserMobiles($user_id){
+        return $this->mobile->where('user_id', $user_id)->get();
     }
     public function getUserCareers($user_id){
         return $this->career->where('user_id', $user_id)->get();
@@ -60,6 +70,12 @@ class UserRepository implements UserRepositoryInterface
 
     public function getUserLanguages($user_id){
         return $this->userLanguage->where('user_id', $user_id)->with('languageLevel')->get();
+    }
+    public function getUserProjects($user_id){
+        return $this->project->where('user_id', $user_id)->get();
+    }
+    public function getUserProjectsCount($user_id){
+        return $this->project->where('user_id', $user_id)->count();
     }
 
     public function validateContactFormData(Request $request){
