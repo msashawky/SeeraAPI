@@ -24,7 +24,7 @@ class UserController extends Controller
     public function userData($domain){
         $data = $this->userRepository->getUserData($domain);
         if($data)
-            return $this->apiResponse(UserDataResource::make($data), UserDataResource::collection($data->mobiles));
+            return $this->apiResponse(UserDataResource::make($data));
         return $this->notFoundResponse("user not found");
     }
 

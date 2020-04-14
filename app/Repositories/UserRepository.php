@@ -51,7 +51,7 @@ Project $project, Mobile $mobile)
     }
 
     public function getUserData($domain){
-        return $this->user->where('username','LIKE', $domain)->with(['country', 'website', 'mobiles'])->first();
+        return $this->user->where('username','LIKE', $domain)->with(['country', 'website'])->first();
     }
     public function getUserMobiles($user_id){
         return $this->mobile->where('user_id', $user_id)->get();
