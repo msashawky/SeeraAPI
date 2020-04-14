@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Resources\UserEducationsResource;
 use App\Http\Resources\UserLanguagesResource;
+use App\Http\Resources\UserMobilesResource;
 use App\Http\Resources\UserProjectsCountResource;
 use App\Http\Resources\UserProjectsResource;
 use App\Models\User;
@@ -23,8 +24,15 @@ class UserController extends Controller
     public function userData($domain){
         $data = $this->userRepository->getUserData($domain);
         if($data)
-            return $this->apiResponse(UserDataResource::make($data));
+            return $this->apiResponse(UserDataResource::make($data), UserDataResource::collection($data->mobiles));
         return $this->notFoundResponse("user not found");
+    }
+
+    public function userMobiles($user_id){
+        $mobiles = $this->userRepository->getUserMobiles($user_id);
+        if(count($mobiles) > 0)
+            return $this->apiResponse(UserMobilesResource::collection($mobiles));
+        return $this->notFoundResponse("careers not found");
     }
 
     public function userCareers($user_id){

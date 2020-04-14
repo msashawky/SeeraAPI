@@ -25,7 +25,16 @@ class UserDataResource extends JsonResource
             'biography_en' => $this->biography_en,
             'career_started_at' => $this->career_started_at,
             'country_en' => $this->country->name_en,
-            'country_ar' => $this->country->name_ar
+            'country_ar' => $this->country->name_ar,
+            'facebook' => $this->website->facebook,
+            'twitter' => $this->website->twitter,
+            'linkedin' => $this->website->linkedin,
+            'youtube' => $this->website->youtube,
+            'google_plus' => $this->website->google_plus,
+            'behance' => $this->website->behance,
+            'instagram' => $this->website->instagram,
+            'pinterest' => $this->website->pinterest,
+            'vimeo' => $this->website->vimeo,
 //            'photo' =>isset($this->photo) ? dashboardUrl() . 'upload_images/activities/'. $this->photo  : null,
         ];
     }

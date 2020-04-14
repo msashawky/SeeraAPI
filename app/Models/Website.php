@@ -12,4 +12,8 @@ class Website extends Model
     public function tags(){
         return $this->hasMany('App\Models\WebsiteTag');
     }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

@@ -34,6 +34,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function country(){
         return $this->belongsTo('App\Models\Country', 'country_id');
     }
+    public function website(){
+        return $this->hasOne('App\Models\Website');
+    }
     public function careers(){
         return $this->hasMany('App\Models\Career');
     }
@@ -53,6 +56,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
     public function userEducations(){
         return $this->hasMany('App\Models\UserEducation', 'user_id');
+    }
+    public function mobiles(){
+        return $this->hasMany('App\Models\Mobile', 'user_id');
     }
 
     public function getJWTCustomClaims()
