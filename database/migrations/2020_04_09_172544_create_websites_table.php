@@ -21,6 +21,7 @@ class CreateWebsitesTable extends Migration
             $table->string('website_name_en');
             $table->string('domain');
             $table->enum('domain_type', ['normal', 'premium']);
+            $table->enum('website_type', ['personal', 'organization']);
             $table->string('background_image');
             $table->integer('number_of_visits')->default(0);
             $table->enum('status', ['enabled', 'disabled'])->default('enabled');

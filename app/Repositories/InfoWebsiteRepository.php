@@ -87,7 +87,7 @@ class InfoWebsiteRepository implements InfoWebsiteRepositoryInterface
     }
     public function validateCreateNewsletter(Request $request){
         return $this->apiValidation($request, [
-            'email' => 'required|email|min:3|max:100',
+            'email' => 'required|email|min:3|max:100|unique:news_letters,email',
         ]);
     }
 
