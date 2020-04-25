@@ -60,6 +60,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function mobiles(){
         return $this->hasMany('App\Models\Mobile', 'user_id');
     }
+    public function userActivation(){
+        return $this->hasOne('App\Models\UserActivation', 'user_id');
+    }
 
     public function getJWTCustomClaims()
     {

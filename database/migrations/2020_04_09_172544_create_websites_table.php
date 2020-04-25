@@ -17,11 +17,12 @@ class CreateWebsitesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('website_name_ar');
-            $table->string('website_name_en');
+            $table->string('website_name_ar')->nullable();
+            $table->string('website_name_en')->nullable();
             $table->string('domain');
             $table->enum('domain_type', ['normal', 'premium']);
-            $table->string('background_image');
+            $table->enum('website_type', ['personal', 'organization']);
+            $table->string('background_image')->nullable();
             $table->integer('number_of_visits')->default(0);
             $table->enum('status', ['enabled', 'disabled'])->default('enabled');
             //social links

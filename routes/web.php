@@ -18,27 +18,6 @@ $router->get('/', function () use ($router) {
 //    return \Illuminate\Support\Str::random(32);
 //});
 
-//
-//$router->group(['prefix' => 'api'], function () use ($router) {
-//    $router->get('/', function(){
-//        return response()->json(['test']);
-//    });
-//    // Matches "/api/register
-//    $router->post('register', 'AuthController@register');
-//    // Matches "/api/login
-//    $router->post('login', 'AuthController@login');
-//
-//    // Matches "/api/profile
-//    $router->get('profile', 'UserController@profile');
-//
-//    // Matches "/api/users/1
-//    //get one user by id
-//    $router->get('users/{id}', 'UserController@singleUser');
-//
-//    // Matches "/api/users
-//    $router->get('users', 'UserController@allUsers');
-//});
-//
 
 //Website
 $router->group(['prefix' => 'websiteApi'], function () use ($router) {
@@ -53,10 +32,27 @@ $router->group(['prefix' => 'websiteApi'], function () use ($router) {
     $router->post('/{user_id}/contact', 'UserController@contact');
 });
 
+
+//Info Website
+$router->group(['prefix' => 'infowebsiteApi'], function () use ($router) {
+    $router->get('/websiteContent', 'InfoWebsiteController@infoWebsiteContent');
+    $router->post('/websiteContent/create', 'InfoWebsiteController@create');
+    $router->post('/websiteContent/update', 'InfoWebsiteController@update');
+    $router->get('/websites/count', 'InfoWebsiteController@websitesCount');
+    $router->post('/newsletter/create', 'InfoWebsiteController@createNewsletter');
+    $router->post('/contact', 'InfoWebsiteController@contact');
+});
+
+//Domains
+$router->group(['prefix' => 'domains'], function () use ($router) {
+    $router->post('/normalDomainCheck', 'InfoWebsiteController@normalDomainCheck');
+});
+
 #All Auth
 $router->group(['prefix' => 'auth'], function () use ($router) {
 
     $router->post('register', 'AuthController@userRegister');
+    $router->get('/user/activation/{token}', 'AuthController@activateUser');
 
 //    $router->post('login/facebook', 'AuthController@loginFacebook');
 

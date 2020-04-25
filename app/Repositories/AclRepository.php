@@ -5,11 +5,13 @@ namespace App\Repositories;
 
 use App\Interfaces\AclRepositoryInterface;
 
+use App\Models\Website;
 use App\Traits\ApiResponseTrait;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\UserActivation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\ExpiredException;
@@ -24,11 +26,13 @@ class AclRepository implements AclRepositoryInterface
     static $offset = ((10 * 24) * (60 * 60));
 
     protected $user;
+    protected $userActivation;
 
 
-    public function __construct(User $user)
+    public function __construct(User $user, UserActivation $userActivation)
     {
         $this->user = $user;
+        $this->userActivation = $userActivation;
     }
 
     public function authenticateUser(Request $request)
@@ -72,19 +76,45 @@ class AclRepository implements AclRepositoryInterface
 
         if ($user) {
             $input['user_id'] = $user->id;
-
-//            if ($request->userType == 'school') {
-//
-//                $this->school->create($input);
-//            }
-
             $token = jwt($user);
+
+            //create User Activation token/code
+            $userActivation = new UserActivation();
+            $userActivation->user_id = $input['user_id'];
+            $userActivation->token = str_random(30);
+            $userActivation->save();
+
+            //Create not completed website
+            $website = new Website();
+            $website->user_id = $input['user_id'];
+            $website->domain = $input['domain'];
+            $website->domain_type = $input['domain_type'];
+            $website->website_type = $input['website_type'];
+            $website->save();
+            $activationToken = $input = $this->userActivation->orderBy('id', 'DESC')->value('token');
+            $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="user/activation/'.$activationToken.'">Activate</a>';
+            $headers = "Content-Type: text/html; charset=UTF-8\r\n";
+
+//            mail($input['email'],"Seera - Activation Code", $message, $headers);
 
             //for testing return token if sms code api get make change status to activate
             return $this->apiResponse(['token' => $token,
                 'name_en' => $user->name_en, 'email' => $user->email], null, 201);
         }
         return $this->unKnowError('error while creating');
+    }
+
+    public function userActivation($token){
+        $check = UserActivation::where('token', $token)->first();
+        if(!is_null($check)) {
+            $user = User::find($check->user_id);
+            if($user->is_activated == 0){
+                $user->is_activated = 1;
+                $user->save();
+                UserActivation::where('token', $token)->delete();
+                return true;
+            }
+        }
     }
 
 
@@ -149,8 +179,7 @@ class AclRepository implements AclRepositoryInterface
             'name_en' => 'required',
             'password' => 'required',
             'date_of_birth' => 'date_format:Y-m-d|before:"2015-12-31"',
-//            'gender' => 'required',
-//            'userType' => 'required|in:school,training_center,instructor,parents,student,teacher',
+            'gender' => 'required',
         ]);
     }
 
