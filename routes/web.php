@@ -52,6 +52,7 @@ $router->group(['prefix' => 'domains'], function () use ($router) {
 $router->group(['prefix' => 'auth'], function () use ($router) {
 
     $router->post('register', 'AuthController@userRegister');
+    $router->get('/user/activation/{token}', 'AuthController@activateUser');
 
 //    $router->post('login/facebook', 'AuthController@loginFacebook');
 

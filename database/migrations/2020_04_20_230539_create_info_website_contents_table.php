@@ -26,10 +26,15 @@ class CreateInfoWebsiteContentsTable extends Migration
             $table->text('terms_and_conditions_en');
             $table->text('privacy_policy_ar');
             $table->text('privacy_policy_en');
+            $table->string('address_ar');
+            $table->string('address_en');
+            $table->string('phone_number');
+            $table->string('email');
             $table->string('facebook');
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
+            $table->string('linkedin')->nullable();
             $table->timestamps();
         });
     }

@@ -44,6 +44,14 @@ class AuthController extends Controller
         return $this->aclRepository->storeUser($request);
     }
 
+    public function activateUser($token){
+        $activated = $this->aclRepository->userActivation($token);
+        if($activated)
+            return response()->json(['data' => 'User has been activated']);
+        return $this->unKnowError("error while activating user");
+
+    }
+
     public function changePassword(Request $request)
     {
         $validation = $this->aclRepository->validateChangePassword($request);
