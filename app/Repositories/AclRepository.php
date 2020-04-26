@@ -179,6 +179,9 @@ class AclRepository implements AclRepositoryInterface
             'password' => 'required',
             'date_of_birth' => 'date_format:Y-m-d|before:"2015-12-31"',
             'gender' => 'required',
+            'userType' => 'required|in:admin,personal_website,organization_website',
+            'domain' => 'required|min:3|max:100|alpha_dash',
+            'domain_type' => 'required|in:normal,premium',
         ]);
     }
 
