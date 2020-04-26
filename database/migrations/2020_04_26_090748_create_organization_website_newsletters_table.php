@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserActivationsTable extends Migration
+class CreateOrganizationWebsiteNewslettersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateUserActivationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_activations', function (Blueprint $table) {
+        Schema::create('organization_website_newsletters', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('token');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('organization_website_id')->unsigned();
+            $table->foreign('organization_website_id')->references('id')->on('organization_websites');
+            $table->string('email',128)->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateUserActivationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_activations');
+        Schema::dropIfExists('organization_website_newsletters');
     }
 }

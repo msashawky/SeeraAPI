@@ -89,7 +89,6 @@ class AclRepository implements AclRepositoryInterface
             $website->user_id = $input['user_id'];
             $website->domain = $input['domain'];
             $website->domain_type = $input['domain_type'];
-            $website->website_type = $input['website_type'];
             $website->save();
             $activationToken = $input = $this->userActivation->orderBy('id', 'DESC')->value('token');
             $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="user/activation/'.$activationToken.'">Activate</a>';
