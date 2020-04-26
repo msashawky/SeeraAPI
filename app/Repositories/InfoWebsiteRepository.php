@@ -95,6 +95,14 @@ class InfoWebsiteRepository implements InfoWebsiteRepositoryInterface
         $message = '<p><strong>Name: '.$request->name.'</strong><br> email:'.$request->email.'</p><br>'.'message: <p>'.$request->message.'</p>';
         $headers = "Content-Type: text/html; charset=UTF-8\r\n";
         mail('info@seeraplatform.org',"Seera - Contact Form", $message, $headers);
+        dd("test");
+    }
+    public function validateContactFormData(Request $request){
+        return $this->apiValidation($request, [
+            'name' => 'required|min:3|max:100',
+            'email' => 'required|email|max:100',
+            'message' => 'required|min:5|max:200'
+        ]);
     }
 
     public function checkForDomainAvailability(Request $request){

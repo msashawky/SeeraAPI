@@ -78,8 +78,8 @@ class InfoWebsiteController extends Controller
 
     }
 
-    public function contact(Request $request, $user_id){
-        $validation = $this->userRepository->validateContactFormData($request);
+    public function contact(Request $request){
+        $validation = $this->infoWebsiteRepository->validateContactFormData($request);
         if ($validation instanceof \Illuminate\Http\Response) {
             return $validation;
         }
