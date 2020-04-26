@@ -81,8 +81,14 @@ class InfoWebsiteRepository implements InfoWebsiteRepositoryInterface
         return $this->website->count();
     }
 
+    public function newsLetterRegistered($email){
+        return $this->newsletter->where('email', 'LIKE', $email)->first();
+    }
+
     public function addToNewsletterList(Request $request){//dd($request);
         $input = $request->all();
+        if($this->newsLetterRegistered($request->email))
+            return null;
         return $this->newsletter->create($input);
     }
     public function validateCreateNewsletter(Request $request){
@@ -94,7 +100,7 @@ class InfoWebsiteRepository implements InfoWebsiteRepositoryInterface
     public function sendContactForm(Request $request){
         $message = '<p><strong>Name: '.$request->name.'</strong><br> email:'.$request->email.'</p><br>'.'message: <p>'.$request->message.'</p>';
         $headers = "Content-Type: text/html; charset=UTF-8\r\n";
-        mail('info@seeraplatform.org',"Seera - Contact Form", $message, $headers);
+        mail('msashawky@gmail.com',"Seera - Contact Form", $message, $headers);
     }
     public function validateContactFormData(Request $request){
         return $this->apiValidation($request, [

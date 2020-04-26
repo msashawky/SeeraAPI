@@ -72,9 +72,9 @@ class InfoWebsiteController extends Controller
             return $validation;
         }
         $newsletter = $this->infoWebsiteRepository->addToNewsletterList($request);
-        if($newsletter)
+        if($newsletter != null)
             return $this->apiResponse(new WebsiteNewslettertResource($newsletter));
-        return $this->unKnowError("newsletter cannot be added");
+        return $this->unKnowError("already registered email");
 
     }
 
