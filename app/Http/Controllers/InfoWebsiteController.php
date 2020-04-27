@@ -21,7 +21,7 @@ class InfoWebsiteController extends Controller
         $content = $this->infoWebsiteRepository->getInfoWebsiteContent();
         if($content)
             return $this->apiResponse(InfoWebsiteContentResource::make($content));
-        return $this->notFoundResponse("user not found");
+        return $this->notFoundResponse("content not found");
     }
 
 

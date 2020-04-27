@@ -21,7 +21,7 @@ class InfoWebsiteContentResource extends JsonResource
             'terms_and_conditions_ar' => $this->terms_and_conditions_ar,
             'terms_and_conditions_en' => $this->terms_and_conditions_en,
             'privacy_policy_en' => $this->privacy_policy_en,
-            'privacy_policy_en' => $this->privacy_policy_ar,
+            'privacy_policy_ar' => $this->privacy_policy_ar,
             'facebook' => $this->facebook,
             'twitter' => $this->twitter,
             'instagram' => $this->instagram,
