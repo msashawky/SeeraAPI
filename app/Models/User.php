@@ -19,7 +19,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     public $table = "users";
     protected $fillable = [
-        'name_en','name_ar', 'email', 'username', 'password'
+        'name_en','name_ar', 'email', 'username', 'password', 'userType', 'date_of_birth', 'gender', 'martial_status',
+        'country_id', 'city', 'job_title_ar', 'job_title_en', 'biography_ar', 'biography_en', 'career_started_at'
     ];
 
     /**
@@ -36,6 +37,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
     public function website(){
         return $this->hasOne('App\Models\Website');
+    }
+    public function organizationWebsite(){
+        return $this->hasOne('App\Models\OrganizationWebsite');
     }
     public function careers(){
         return $this->hasMany('App\Models\Career');

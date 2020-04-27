@@ -43,6 +43,16 @@ $router->group(['prefix' => 'infowebsiteApi'], function () use ($router) {
     $router->post('/contact', 'InfoWebsiteController@contact');
 });
 
+//Organization Website
+$router->group(['prefix' => 'organizationWebsiteApi'], function () use ($router) {
+    $router->get('/{domain}', 'OrganizationWebsiteController@websiteData');
+    $router->get('/{domain}/mobiles', 'OrganizationWebsiteController@userMobiles');
+    $router->get('/{user_id}/projects', 'OrganizationWebsiteController@websiteProjects');
+    $router->get('/{user_id}/projects/count', 'OrganizationWebsiteController@websiteProjectsCount');
+    $router->post('/{user_id}/contact', 'OrganizationWebsiteController@contact');
+});
+
+
 //Domains
 $router->group(['prefix' => 'domains'], function () use ($router) {
     $router->post('/normalDomainCheck', 'InfoWebsiteController@normalDomainCheck');

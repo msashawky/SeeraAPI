@@ -21,7 +21,7 @@ class InfoWebsiteController extends Controller
         $content = $this->infoWebsiteRepository->getInfoWebsiteContent();
         if($content)
             return $this->apiResponse(InfoWebsiteContentResource::make($content));
-        return $this->notFoundResponse("user not found");
+        return $this->notFoundResponse("content not found");
     }
 
 
@@ -72,14 +72,14 @@ class InfoWebsiteController extends Controller
             return $validation;
         }
         $newsletter = $this->infoWebsiteRepository->addToNewsletterList($request);
-        if($newsletter)
+        if($newsletter != null)
             return $this->apiResponse(new WebsiteNewslettertResource($newsletter));
-        return $this->unKnowError("newsletter cannot be added");
+        return $this->unKnowError("already registered email");
 
     }
 
-    public function contact(Request $request, $user_id){
-        $validation = $this->userRepository->validateContactFormData($request);
+    public function contact(Request $request){
+        $validation = $this->infoWebsiteRepository->validateContactFormData($request);
         if ($validation instanceof \Illuminate\Http\Response) {
             return $validation;
         }
