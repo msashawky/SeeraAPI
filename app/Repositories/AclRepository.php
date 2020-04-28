@@ -94,7 +94,7 @@ class AclRepository implements AclRepositoryInterface
             $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="user/activation/'.$activationToken.'">Activate</a>';
             $headers = "Content-Type: text/html; charset=UTF-8\r\n";
 
-//            mail($input['email'],"Seera - Activation Code", $message, $headers);
+//            mail($request->email,"Seera - Activation Code", $message, $headers);
 
             //for testing return token if sms code api get make change status to activate
             return $this->apiResponse(['token' => $token,
@@ -174,6 +174,7 @@ class AclRepository implements AclRepositoryInterface
     {
         return $this->apiValidation($request, [
             'email' => 'required|email|unique:users,email',
+            'username' => 'required|unique:users,username',
             'name_ar' => 'required',
             'name_en' => 'required',
             'password' => 'required',
