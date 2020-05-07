@@ -52,7 +52,28 @@ $router->group(['prefix' => 'organizationWebsiteApi'], function () use ($router)
     $router->post('/{user_id}/contact', 'OrganizationWebsiteController@contact');
 });
 
+//Dashboard
+$router->group(['prefix' => 'dashboardApi'], function () use ($router) {
+    $router->post('/user/{user_id}/update', 'UserController@updateUser');
+    $router->post('/personalSite/{user_id}/update', 'PersonalWebsiteController@updateWebsite');
 
+    //Educations
+    $router->get('personalSite/educationDegrees', 'PersonalWebsiteController@educationDegrees');
+    $router->post('personalSite/userEducation/create', 'PersonalWebsiteController@createEducation');
+    $router->post('personalSite/userEducation/{id}/update', 'PersonalWebsiteController@UpdateEducation');
+    $router->delete('personalSite/userEducation/delete', 'PersonalWebsiteController@deleteEducation');
+    //Languages
+    $router->get('/personalSite/languages', 'PersonalWebsiteController@languages');
+    $router->get('/personalSite/languageLevels', 'PersonalWebsiteController@languageLevels');
+    $router->post('/personalSite/userLanguage/create', 'PersonalWebsiteController@createLanguage');
+    $router->delete('/personalSite/userLanguage/delete', 'PersonalWebsiteController@deleteLanguage');
+
+    //Skills
+    $router->post('/personalSite/userSkill/create', 'PersonalWebsiteController@createSkill');
+    $router->post('/personalSite/userSkill/{id}/update', 'PersonalWebsiteController@updateSkill');
+    $router->delete('/personalSite/userSkill/delete', 'PersonalWebsiteController@deleteSkill');
+
+});
 //Domains
 $router->group(['prefix' => 'domains'], function () use ($router) {
     $router->post('/normalDomainCheck', 'InfoWebsiteController@normalDomainCheck');

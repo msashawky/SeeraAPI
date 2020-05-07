@@ -4,16 +4,15 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserSkillsResource extends JsonResource
+class EducationDegreeResource extends JsonResource
 {
 
     //for security and manipulate with data
     public function toArray($request)
     {
         return [
-            'user_skill_id' => $this->id,
-            'skill' => $this->skill,
-            'skill_percentage' => $this->skill_percentage
+            'name_ar' => $this->name_ar,
+            'name_en' => $this->name_en,
         ];
     }
 

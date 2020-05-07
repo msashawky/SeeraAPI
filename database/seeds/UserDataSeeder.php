@@ -21,8 +21,8 @@ class UserDataSeeder extends Seeder
     public function run()
     {
         //Countries
-        Country::insert(['name_en' => 'Egypt', 'name_ar' => 'مصر']);
-        Country::insert(['name_en' => 'Saudi Arabia', 'name_ar' => 'المملكة العربية السعودية']);
+//        Country::insert(['name_en' => 'Egypt', 'name_ar' => 'مصر']);
+//        Country::insert(['name_en' => 'Saudi Arabia', 'name_ar' => 'المملكة العربية السعودية']);
 
         //Language Levels
         LanguageLevel::insert(['name_en' => 'Elementary', 'name_ar' => 'مبتديء']);

@@ -11,6 +11,7 @@ class UserEducationsResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'user_education_id' => $this->id,
             'user_id' => $this->user_id,
             'degree_ar' => $this->educationDegree->name_ar,
             'degree_en' => $this->educationDegree->name_en,

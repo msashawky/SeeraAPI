@@ -16,6 +16,7 @@ use App\Models\Skill;
 use App\Models\UserLanguage;
 use App\Models\Project;
 use App\Models\Mobile;
+use App\Models\Website;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\ExpiredException;
@@ -36,10 +37,11 @@ class UserRepository implements UserRepositoryInterface
     private $userLanguage;
     private $project;
     private $mobile;
+    private $website;
 
 
     public function __construct(User $user, Career $career, UserEducation $userEducation, Skill $skill, UserLanguage $userLanguage,
-Project $project, Mobile $mobile)
+Project $project, Mobile $mobile, Website $website)
     {
         $this->user = $user;
         $this->career = $career;
@@ -48,6 +50,7 @@ Project $project, Mobile $mobile)
         $this->userLanguage = $userLanguage;
         $this->project = $project;
         $this->mobile = $mobile;
+        $this->website = $website;
     }
 
     public function getUserData($domain){
@@ -99,4 +102,48 @@ Project $project, Mobile $mobile)
         return $this->user->where('id', $user_id)->first();
     }
 
+    public function validateEditUser(Request $request){
+        return $this->apiValidation($request, [
+            'name_ar' => 'required|min:3|max:100',
+            'name_en' => 'required|min:3|max:100',
+//            'email' =>'required|email|max:100',
+//            'username' => 'required|min:3|max:100|unique:users,username',
+            'date_of_birth' => 'required',
+            'gender' => 'required',
+            'martial_status' => 'required',
+            'job_title_ar' => 'required|min:3|max:100',
+            'job_title_en' => 'required|min:3|max:100',
+            'biography_ar' => 'required|min:3|max:220',
+            'biography_en' => 'required|min:3|max:220',
+            'career_started_at' => 'required',
+            'country_id' => 'required',
+            'city' => 'required',
+        ]);
+    }
+
+    public function updateUserData(Request $request, $user_id){
+        return $this->user->where('id', $user_id)->update($request->all());
+    }
+
+    public function updateWebsiteInfo(Request $request, $user_id){
+        return $this->website->where('user_id', $user_id)->update($request->all());
+    }
+
+    public function validateEditWebsite(Request $request){
+        return $this->apiValidation($request, [
+            'website_name_ar' => 'required|min:3|max:100',
+            'website_name_en' => 'required|min:3|max:100',
+            'domain' => 'required',
+            'domain_type' => 'required',
+            'facebook' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
+            'twitter' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
+            'linkedin' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)linkedin\.com\/([a-zA-Z0-9_]*)$/',
+            'youtube' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)youtube\.com\/([a-zA-Z0-9_]*)$/',
+            'google_plus' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)google\.com\/([a-zA-Z0-9_]*)$/',
+            'behance' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)behance\.com\/([a-zA-Z0-9_]*)$/',
+            'instagram' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)instagram\.com\/([a-zA-Z0-9_]*)$/',
+            'pinterest' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)pinterest\.com\/([a-zA-Z0-9_]*)$/',
+            'vimeo' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)vimeo\.com\/([a-zA-Z0-9_]*)$/',
+        ]);
+    }
 }

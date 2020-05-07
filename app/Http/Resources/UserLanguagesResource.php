@@ -11,6 +11,7 @@ class UserLanguagesResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'user_language_id' => $this->id,
             'language_ar' => $this->language->name_ar,
             'language_en' => $this->language->name_en,
             'language_level_ar' => $this->languageLevel->name_ar,

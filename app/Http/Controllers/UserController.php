@@ -94,4 +94,17 @@ class UserController extends Controller
 //        }
 //        return $this->unKnowError("error while creating the post");
     }
+
+    public function updateUser(Request $request, $user_id){
+        $validation = $this->userRepository->validateEditUser($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $updatedData = $this->userRepository->updateUserData($request, $user_id);
+        return $this->apiResponse($updatedData);
+    }
+
+
 }
