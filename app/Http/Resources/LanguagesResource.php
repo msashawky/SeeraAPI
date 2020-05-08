@@ -12,7 +12,8 @@ class LanguagesResource extends JsonResource
     {
         return [
             'name_ar' => $this->name_ar,
-            'name_en' => $this->name_en
+            'name_en' => $this->name_en,
+            'id' => $this->id
         ];
     }
 

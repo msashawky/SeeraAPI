@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
 //$router->get('/key', function() {
 //    return \Illuminate\Support\Str::random(32);
 //});
-
+$router->get('countries', 'UserController@countries');
 
 //Website
 $router->group(['prefix' => 'websiteApi'], function () use ($router) {

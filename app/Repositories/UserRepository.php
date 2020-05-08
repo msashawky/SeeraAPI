@@ -17,6 +17,7 @@ use App\Models\UserLanguage;
 use App\Models\Project;
 use App\Models\Mobile;
 use App\Models\Website;
+use App\Models\Country;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\ExpiredException;
@@ -38,10 +39,11 @@ class UserRepository implements UserRepositoryInterface
     private $project;
     private $mobile;
     private $website;
+    private $country;
 
 
     public function __construct(User $user, Career $career, UserEducation $userEducation, Skill $skill, UserLanguage $userLanguage,
-Project $project, Mobile $mobile, Website $website)
+Project $project, Mobile $mobile, Website $website, Country $country)
     {
         $this->user = $user;
         $this->career = $career;
@@ -51,6 +53,7 @@ Project $project, Mobile $mobile, Website $website)
         $this->project = $project;
         $this->mobile = $mobile;
         $this->website = $website;
+        $this->country = $country;
     }
 
     public function getUserData($domain){
@@ -145,5 +148,9 @@ Project $project, Mobile $mobile, Website $website)
             'pinterest' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)pinterest\.com\/([a-zA-Z0-9_]*)$/',
             'vimeo' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)vimeo\.com\/([a-zA-Z0-9_]*)$/',
         ]);
+    }
+
+    public function getAllCountries(){
+        return $this->country->all();
     }
 }
