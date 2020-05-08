@@ -11,6 +11,7 @@ class UserCareersResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'user_career_id' => $this->id,
             'user_id' => $this->user_id,
             'title_ar' => $this->title_ar,
             'title_en' => $this->title_en,
