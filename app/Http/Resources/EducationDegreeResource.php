@@ -13,6 +13,7 @@ class EducationDegreeResource extends JsonResource
         return [
             'name_ar' => $this->name_ar,
             'name_en' => $this->name_en,
+            'degree_id' => $this->id,
         ];
     }
 
