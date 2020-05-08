@@ -73,6 +73,16 @@ $router->group(['prefix' => 'dashboardApi'], function () use ($router) {
     $router->post('/personalSite/userSkill/{id}/update', 'PersonalWebsiteController@updateSkill');
     $router->delete('/personalSite/userSkill/delete', 'PersonalWebsiteController@deleteSkill');
 
+    //Career
+    $router->post('/personalSite/userCareer/create', 'PersonalWebsiteController@createCareer');
+    $router->post('/personalSite/userCareer/{id}/update', 'PersonalWebsiteController@updateCareer');
+    $router->delete('/personalSite/userCareer/delete', 'PersonalWebsiteController@deleteCareer');
+
+    //Project
+    $router->post('/personalSite/userProject/create', 'PersonalWebsiteController@createProject');
+    $router->post('/personalSite/userProject/{id}/update', 'PersonalWebsiteController@updateProject');
+    $router->delete('/personalSite/userProject/delete', 'PersonalWebsiteController@deleteProject');
+
 });
 //Domains
 $router->group(['prefix' => 'domains'], function () use ($router) {

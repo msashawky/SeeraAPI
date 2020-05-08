@@ -171,4 +171,53 @@ Project $project, Mobile $mobile, Website $website, Language $language, Language
     public function deleteWebsiteskill(Request $request){
         $this->skill->where('id', $request->id)->delete();
     }
+
+
+    //Career
+    public function createWebsiteCareer(Request $request){
+        return $this->career->create($request->all());
+    }
+    public function validateCreateWebsiteCareer(Request $request){
+        return $this->apiValidation($request, [
+            'user_id' => 'required',
+            'title_ar' => 'required|min:3|max:200',
+            'title_en' => 'required|min:3|max:200',
+            'employer' => 'required|max:200',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'employment_status' => 'required',
+            'role' => 'required|min:2|max:200',
+            'description_ar' => 'nullable| max:500',
+            'description_en' => 'nullable| max:500'
+        ]);
+    }
+    public function updateWebsiteCareer(Request $request){
+        return $this->career->where('id', $request->id)->update($request->all());
+    }
+
+    public function deleteWebsiteCareer(Request $request){
+        $this->career->where('id', $request->id)->delete();
+    }
+
+
+    //Project
+    public function createWebsiteProject(Request $request){
+        return $this->project->create($request->all());
+    }
+    public function validateCreateWebsiteProject(Request $request){
+        return $this->apiValidation($request, [
+            'user_id' => 'required',
+            'project_title' => 'required|min:3|max:200',
+            'project_description' => 'required|min:3|max:500',
+        ]);
+    }
+    public function updateWebsiteProject(Request $request){
+        return $this->project->where('id', $request->id)->update($request->all());
+    }
+
+    public function deleteWebsiteProject(Request $request){
+        $this->project->where('id', $request->id)->delete();
+    }
+
+
 }

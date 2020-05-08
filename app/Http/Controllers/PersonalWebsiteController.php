@@ -114,4 +114,61 @@ class PersonalWebsiteController extends Controller
     public function deleteSkill(Request $request){
         return $this->personalWebsiteRepository->deleteWebsiteskill($request);
     }
+
+
+
+
+    public function createCareer(Request $request){
+        $validation = $this->personalWebsiteRepository->validateCreateWebsiteCareer($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $career = $this->personalWebsiteRepository->createWebsiteCareer($request);
+        return $this->apiResponse($career);
+
+    }
+
+    public function updateCareer(Request $request){
+        $validation = $this->personalWebsiteRepository->validateCreateWebsiteCareer($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $career = $this->personalWebsiteRepository->updateWebsiteCareer($request);
+        return $this->apiResponse($career);
+    }
+    public function deleteCareer(Request $request){
+        return $this->personalWebsiteRepository->deleteWebsiteCareer($request);
+    }
+
+    //Projects
+    public function createProject(Request $request){
+        $validation = $this->personalWebsiteRepository->validateCreateWebsiteProject($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $career = $this->personalWebsiteRepository->createWebsiteProject($request);
+        return $this->apiResponse($career);
+
+    }
+
+    public function updateProject(Request $request){
+        $validation = $this->personalWebsiteRepository->validateCreateWebsiteProject($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $career = $this->personalWebsiteRepository->updateWebsiteProject($request);
+        return $this->apiResponse($career);
+    }
+    public function deleteProject(Request $request){
+        return $this->personalWebsiteRepository->deleteWebsiteProject($request);
+    }
+
 }
