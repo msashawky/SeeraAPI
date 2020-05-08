@@ -36,10 +36,10 @@ class JwtMiddleware
 
 
         //check if user logout or change his password time with seconds
-        if(!($credentials->iat > strtotime($user->last_logged_out))){
-            $error = "Please login";
-            return $this->unauthorizedResponse($error);
-        }
+//        if(!($credentials->iat > strtotime($user->last_logged_out))){
+//            $error = "Please login";
+//            return $this->unauthorizedResponse($error);
+//        }
 
         // Now let's put the user in the request class so that you can grab it from there
         $request->auth = $user;

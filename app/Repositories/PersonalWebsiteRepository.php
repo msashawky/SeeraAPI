@@ -175,11 +175,12 @@ Project $project, Mobile $mobile, Website $website, Language $language, Language
 
     //Career
     public function createWebsiteCareer(Request $request){
+        $currentUser = $request->auth;
+        $request['user_id']= $currentUser->id;
         return $this->career->create($request->all());
     }
     public function validateCreateWebsiteCareer(Request $request){
         return $this->apiValidation($request, [
-            'user_id' => 'required',
             'title_ar' => 'required|min:3|max:200',
             'title_en' => 'required|min:3|max:200',
             'employer' => 'required|max:200',
@@ -192,6 +193,8 @@ Project $project, Mobile $mobile, Website $website, Language $language, Language
         ]);
     }
     public function updateWebsiteCareer(Request $request){
+        $currentUser = $request->auth;
+        $request['user_id']= $currentUser->id;
         return $this->career->where('id', $request->id)->update($request->all());
     }
 
@@ -202,20 +205,26 @@ Project $project, Mobile $mobile, Website $website, Language $language, Language
 
     //Project
     public function createWebsiteProject(Request $request){
+        $currentUser = $request->auth;
+        $request['user_id']= $currentUser->id;
         return $this->project->create($request->all());
     }
     public function validateCreateWebsiteProject(Request $request){
         return $this->apiValidation($request, [
-            'user_id' => 'required',
+//            'user_id' => 'required',
             'project_title' => 'required|min:3|max:200',
             'project_description' => 'required|min:3|max:500',
         ]);
     }
     public function updateWebsiteProject(Request $request){
+        $currentUser = $request->auth;
+        $request['user_id']= $currentUser->id;
         return $this->project->where('id', $request->id)->update($request->all());
     }
 
     public function deleteWebsiteProject(Request $request){
+        $currentUser = $request->auth;
+        $request['user_id']= $currentUser->id;
         $this->project->where('id', $request->id)->delete();
     }
 
