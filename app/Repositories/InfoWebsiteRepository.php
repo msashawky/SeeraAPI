@@ -51,8 +51,10 @@ class InfoWebsiteRepository implements InfoWebsiteRepositoryInterface
 
     public function updateContent(Request $request){
 //        $content = decodeUser($request->bearerToken());//dd($content);
-        $data = $this->infoWebsiteContent->first();//dd($data);
-        $data->where('id', 3)->update($request->all());
+        return $this->infoWebsiteContent->where('id', 1)->update($request->all());
+//        return $this->infoWebsiteContent->where('id', 1)->update($request->all());
+//        dd($this->infoWebsiteContent->where('id', 1)->first());
+//        return $data->
     }
 
     public function validatecreateContent(Request $request){
