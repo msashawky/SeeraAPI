@@ -11,6 +11,7 @@ class UserProjectsResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'user_project_id' => $this->id,
             'project_title' => $this->project_title,
             'project_description' => $this->project_description,
         ];
