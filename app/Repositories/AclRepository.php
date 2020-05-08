@@ -195,4 +195,11 @@ class AclRepository implements AclRepositoryInterface
         ]);
     }
 
+
+    public function getCurrentUser(Request $request){
+        $currentUser = $request->auth;
+        return $currentUser;
+
+    }
+
 }

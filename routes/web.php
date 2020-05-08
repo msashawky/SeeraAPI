@@ -94,6 +94,9 @@ $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
     $router->group(['prefix' => 'domains'], function () use ($router) {
         $router->post('/normalDomainCheck', 'InfoWebsiteController@normalDomainCheck');
     });
+
+    //CurrentUser
+    $router->post('/currentUser', 'AuthController@currentUser');
 });
 
 
