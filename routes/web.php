@@ -20,23 +20,23 @@ $router->get('/', function () use ($router) {
 $router->get('countries', 'UserController@countries');
 
 
-
+//Website
+$router->group(['prefix' => 'websiteApi'], function () use ($router) {
+    $router->get('/{domain}', 'UserController@userData');
+    $router->get('/{domain}/mobiles', 'UserController@userMobiles');
+    $router->get('/{user_id}/careers', 'UserController@userCareers');
+    $router->get('/{user_id}/educations', 'UserController@userEducations');
+    $router->get('/{user_id}/skills', 'UserController@userSkills');
+    $router->get('/{user_id}/languages', 'UserController@userLanguages');
+    $router->get('/{user_id}/projects', 'UserController@userProjects');
+    $router->get('/{user_id}/projects/count', 'UserController@userProjectsCount');
+    $router->post('/{user_id}/contact', 'UserController@contact');
+});
 $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 
     $router->post('changePassword', 'AuthController@changePassword');
 
-    //Website
-    $router->group(['prefix' => 'websiteApi'], function () use ($router) {
-        $router->get('/{domain}', 'UserController@userData');
-        $router->get('/{domain}/mobiles', 'UserController@userMobiles');
-        $router->get('/{user_id}/careers', 'UserController@userCareers');
-        $router->get('/{user_id}/educations', 'UserController@userEducations');
-        $router->get('/{user_id}/skills', 'UserController@userSkills');
-        $router->get('/{user_id}/languages', 'UserController@userLanguages');
-        $router->get('/{user_id}/projects', 'UserController@userProjects');
-        $router->get('/{user_id}/projects/count', 'UserController@userProjectsCount');
-        $router->post('/{user_id}/contact', 'UserController@contact');
-    });
+
 
 
 //Info Website

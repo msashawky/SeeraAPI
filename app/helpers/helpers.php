@@ -33,8 +33,8 @@ function jwt(User $user)
         'sub' => $user->id, // Subject of the token
         'iat' => time(), // Time when JWT was issued.
         //old time (60 * 60) for 1 hour
-           'exp' => time() + 60 * 15 //* 8// Expiration time valid for 1 minute
-//        'exp' => time() + ((30 * 24) * (60 * 60)) // Expiration time valid for 30 days
+//           'exp' => time() + 60 * 15 //* 8// Expiration time valid for 1 minute
+        'exp' => time() + ((30 * 24) * (60 * 60)) // Expiration time valid for 30 days
     ];
 
     // As you can see we are passing `JWT_SECRET` as the second parameter that will

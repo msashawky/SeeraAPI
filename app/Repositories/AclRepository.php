@@ -151,7 +151,7 @@ class AclRepository implements AclRepositoryInterface
             //$decoded['exp'] = time() + self::$offset;
 
             //for 1 minute for test
-            $decoded['exp'] = time() + 60 * 15;
+            $decoded['exp'] = time() + ((30 * 24) * (60 * 60));//time() + 60 * 15;
 
             //success expired token and return new token
             return $this->apiResponse(JWT::encode($decoded, env('JWT_SECRET')));
