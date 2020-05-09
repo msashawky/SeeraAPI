@@ -11,7 +11,10 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\OrganizationWebsite;
-use App\Models\Project;
+use App\Models\OrganizationWebsiteNewsletter;
+use App\Models\OrganizationWebsitePortfolio;
+use App\Models\OrganizationWebsiteTeam;
+use App\Models\OrganizationWebsiteService;
 use App\Models\Mobile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +22,7 @@ use Firebase\JWT\ExpiredException;
 use Exception;
 use Illuminate\Support\Str;
 
-class OrganizationWebsiteRepository implements OrganizationWebsiteRepositoryInterface
+class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryInterface
 {
 
     use ApiResponseTrait;
@@ -27,32 +30,49 @@ class OrganizationWebsiteRepository implements OrganizationWebsiteRepositoryInte
     static $offset = ((10 * 24) * (60 * 60));
 
     private $user;
-    private $project;
+    private $newsletter;
+    private $service;
+    private $team;
+    private $portfolio;
     private $mobile;
     private $organizationWebsite;
 
 
-    public function __construct(User $user, Project $project, Mobile $mobile, OrganizationWebsite $organizationWebsite)
+    public function __construct(User $user, OrganizationWebsite $organizationWebsite, OrganizationWebsiteService $service,
+                                OrganizationWebsiteNewsletter $newsletter, OrganizationWebsitePortfolio $portfolio,
+                                OrganizationWebsiteTeam $team, Mobile $mobile)
     {
         $this->user = $user;
-        $this->project = $project;
+        $this->organizationWebsite = $organizationWebsite;
+        $this->team = $team;
+        $this->service = $service;
+        $this->portfolio = $portfolio;
+        $this->newsletter = $newsletter;
         $this->mobile = $mobile;
-        $this->organizationWebsite;
+
     }
 
     public function getWebsiteData($domain){
         return $this->user->where('username','LIKE', $domain)->with(['country', 'organizationWebsite'])->first();
     }
-    public function getWebsiteMobiles($user_id){
+    public function getWebsiteMobiles($website_id){
+        $user_id = $this->organizationWebsite->where('id', $website_id)->value('user_id');
         return $this->mobile->where('user_id', $user_id)->get();
     }
 
-    public function getWebsiteProjects($user_id){
-        return $this->project->where('user_id', $user_id)->get();
+    public function getWebsiteServices($website_id){
+        return $this->service->where('organization_website_id', $website_id)->get();
     }
-    public function getWebsiteProjectsCount($user_id){
-        return $this->project->where('user_id', $user_id)->count();
+    public function getWebsitePortfolios($website_id){
+        return $this->portfolio->where('organization_website_id', $website_id)->get();
     }
+    public function getWebsiteNewsletters($website_id){
+        return $this->newsletter->where('organization_website_id', $website_id)->get();
+    }
+    public function getWebsiteTeam($website_id){
+        return $this->team->where('organization_website_id', $website_id)->get();
+    }
+
 
     public function validateContactFormData(Request $request){
         return $this->apiValidation($request, [

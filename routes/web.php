@@ -46,9 +46,10 @@ $router->group(['prefix' => 'infowebsiteApi'], function () use ($router) {
 //Organization Website
 $router->group(['prefix' => 'organizationWebsiteApi'], function () use ($router) {
     $router->get('/{domain}', 'OrganizationWebsiteController@websiteData');
-    $router->get('/{domain}/mobiles', 'OrganizationWebsiteController@userMobiles');
-    $router->get('/{user_id}/projects', 'OrganizationWebsiteController@websiteProjects');
-    $router->get('/{user_id}/projects/count', 'OrganizationWebsiteController@websiteProjectsCount');
+    $router->get('/{website_id}/mobiles', 'OrganizationWebsiteController@websiteMobiles');
+    $router->get('/{website_id}/services', 'OrganizationWebsiteController@websiteServices');
+    $router->get('/{website_id}/portfolio', 'OrganizationWebsiteController@websitePortfolio');
+    $router->get('/{website_id}/team', 'OrganizationWebsiteController@websiteTeam');
     $router->post('/{user_id}/contact', 'OrganizationWebsiteController@contact');
 });
 $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
