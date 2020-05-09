@@ -32,6 +32,25 @@ $router->group(['prefix' => 'websiteApi'], function () use ($router) {
     $router->get('/{user_id}/projects/count', 'UserController@userProjectsCount');
     $router->post('/{user_id}/contact', 'UserController@contact');
 });
+
+//Info Website
+$router->group(['prefix' => 'infowebsiteApi'], function () use ($router) {
+    $router->get('/websiteContent', 'InfoWebsiteController@infoWebsiteContent');
+    $router->post('/websiteContent/create', 'InfoWebsiteController@create');
+    $router->post('/websiteContent/update', 'InfoWebsiteController@update');
+    $router->get('/websites/count', 'InfoWebsiteController@websitesCount');
+    $router->post('/newsletter/create', 'InfoWebsiteController@createNewsletter');
+    $router->post('/contact', 'InfoWebsiteController@contact');
+});
+
+//Organization Website
+$router->group(['prefix' => 'organizationWebsiteApi'], function () use ($router) {
+    $router->get('/{domain}', 'OrganizationWebsiteController@websiteData');
+    $router->get('/{domain}/mobiles', 'OrganizationWebsiteController@userMobiles');
+    $router->get('/{user_id}/projects', 'OrganizationWebsiteController@websiteProjects');
+    $router->get('/{user_id}/projects/count', 'OrganizationWebsiteController@websiteProjectsCount');
+    $router->post('/{user_id}/contact', 'OrganizationWebsiteController@contact');
+});
 $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 
     $router->post('changePassword', 'AuthController@changePassword');
@@ -39,24 +58,7 @@ $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 
 
 
-//Info Website
-    $router->group(['prefix' => 'infowebsiteApi'], function () use ($router) {
-        $router->get('/websiteContent', 'InfoWebsiteController@infoWebsiteContent');
-        $router->post('/websiteContent/create', 'InfoWebsiteController@create');
-        $router->post('/websiteContent/update', 'InfoWebsiteController@update');
-        $router->get('/websites/count', 'InfoWebsiteController@websitesCount');
-        $router->post('/newsletter/create', 'InfoWebsiteController@createNewsletter');
-        $router->post('/contact', 'InfoWebsiteController@contact');
-    });
 
-//Organization Website
-    $router->group(['prefix' => 'organizationWebsiteApi'], function () use ($router) {
-        $router->get('/{domain}', 'OrganizationWebsiteController@websiteData');
-        $router->get('/{domain}/mobiles', 'OrganizationWebsiteController@userMobiles');
-        $router->get('/{user_id}/projects', 'OrganizationWebsiteController@websiteProjects');
-        $router->get('/{user_id}/projects/count', 'OrganizationWebsiteController@websiteProjectsCount');
-        $router->post('/{user_id}/contact', 'OrganizationWebsiteController@contact');
-    });
 
 //Dashboard
     $router->group(['prefix' => 'dashboardApi'], function () use ($router) {

@@ -14,6 +14,8 @@ class CurrentUserDataResource extends JsonResource
             'user_id' => $this->id,
             'userType' => $this->userType,
             'email' => $this->email,
+            'name_ar' => $this->name_ar,
+            'name_en' => $this->name_en,
             'username' => $this->username,
             'gender' => $this->gender,
 
