@@ -11,6 +11,7 @@ class UserSkillsResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'user_skill_id' => $this->id,
             'skill' => $this->skill,
             'skill_percentage' => $this->skill_percentage
         ];

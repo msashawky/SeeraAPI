@@ -4,16 +4,17 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserProjectsResource extends JsonResource
+class CountriesResource extends JsonResource
 {
 
     //for security and manipulate with data
     public function toArray($request)
     {
         return [
-            'user_project_id' => $this->id,
-            'project_title' => $this->project_title,
-            'project_description' => $this->project_description,
+            'id' => $this->id,
+            'name_ar' => $this->name_ar,
+            'name_en' => $this->name_en,
+            'code' => $this->code,
         ];
     }
 

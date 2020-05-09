@@ -52,7 +52,7 @@ class AclRepository implements AclRepositoryInterface
 
 
             return $this->apiResponse([ 'token' => $token, 'code' => $user->code,
-                'name_en' => $user->name_en, 'name_ar' => $user->name_ar, 'photo' => $user->photo]);
+                'name_en' => $user->name_en, 'name_ar' => $user->name_ar, 'photo' => $user->photo, 'id' => $user->id]);
 
         }
         // Bad Request response wrong password
@@ -98,7 +98,7 @@ class AclRepository implements AclRepositoryInterface
 
             //for testing return token if sms code api get make change status to activate
             return $this->apiResponse(['token' => $token,
-                'name_en' => $user->name_en, 'email' => $user->email], null, 201);
+                'name_en' => $user->name_en, 'email' => $user->email, 'id' => $user->id], null, 201);
         }
         return $this->unKnowError('error while creating');
     }
@@ -127,7 +127,7 @@ class AclRepository implements AclRepositoryInterface
             if ($user->update($input)) {
 
                 $token = jwt($user);
-                return $this->apiResponse(['token' => $token], null, 200);
+                return $this->apiResponse(['token' => $token, 'id' => $user->id], null, 200);
             }
         }
 

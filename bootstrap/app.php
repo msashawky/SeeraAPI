@@ -61,6 +61,7 @@ $app->singleton(
  $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
      Fruitcake\Cors\HandleCors::class,
+     App\Http\Middleware\CorsMiddleware::class
  ]);
 
  $app->routeMiddleware([

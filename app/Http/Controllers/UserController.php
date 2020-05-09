@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Resources\CountriesResource;
 use App\Http\Resources\UserEducationsResource;
 use App\Http\Resources\UserLanguagesResource;
 use App\Http\Resources\UserMobilesResource;
@@ -94,4 +95,24 @@ class UserController extends Controller
 //        }
 //        return $this->unKnowError("error while creating the post");
     }
+
+    public function updateUser(Request $request, $user_id){
+        $validation = $this->userRepository->validateEditUser($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $updatedData = $this->userRepository->updateUserData($request, $user_id);
+        return $this->apiResponse($updatedData);
+    }
+
+    public function countries(){
+        $countries = $this->userRepository->getAllCountries();
+        if($countries)
+            return $this->apiResponse(CountriesResource::collection($countries));
+        return $this->notFoundResponse("no countries found");
+    }
+
+
 }
