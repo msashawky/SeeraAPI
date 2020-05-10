@@ -66,12 +66,118 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
     public function getWebsitePortfolios($website_id){
         return $this->portfolio->where('organization_website_id', $website_id)->get();
     }
-    public function getWebsiteNewsletters($website_id){
-        return $this->newsletter->where('organization_website_id', $website_id)->get();
-    }
+
     public function getWebsiteTeam($website_id){
         return $this->team->where('organization_website_id', $website_id)->get();
     }
+
+    //Dashboard Methods
+
+    public function getWebsiteId($user_id){
+        return $this->organizationWebsite->where('user_id', $user_id)->value('id');
+    }
+
+    public function validateCreateWebsite(Request $request){
+        return $this->apiValidation($request, [
+            'website_name_ar' => 'required|min:3|max:100',
+            'website_name_en' => 'required|min:3|max:100',
+            'email' => 'required|email',
+            'domain' => 'required',
+            'domain_type' => 'required',
+            'about_us_ar' => 'required|min:5|max:200',
+            'about_us_en' => 'required|min:5|max:200',
+            'address_ar' => 'required|min:5|max:200',
+            'address_en' => 'required|min:5|max:200',
+            'facebook' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
+            'twitter' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
+            'linkedin' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)linkedin\.com\/([a-zA-Z0-9_]*)$/',
+            'youtube' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)youtube\.com\/([a-zA-Z0-9_]*)$/',
+            'google_plus' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)google\.com\/([a-zA-Z0-9_]*)$/',
+            'behance' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)behance\.com\/([a-zA-Z0-9_]*)$/',
+            'instagram' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)instagram\.com\/([a-zA-Z0-9_]*)$/',
+            'pinterest' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)pinterest\.com\/([a-zA-Z0-9_]*)$/',
+            'vimeo' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)vimeo\.com\/([a-zA-Z0-9_]*)$/',
+        ]);
+    }
+    public function updateWebsiteData(Request $request){
+        $currentUser = $request->auth;
+        $request['user_id']= $currentUser->id;
+        return $this->organizationWebsite->where('id', $request->id)->update($request->all());
+    }
+
+    //Services
+
+    public function createWebsiteService(Request $request){
+        $currentUser = $request->auth;
+        $website_id = $this->getWebsiteId($currentUser->id);
+        $request['organization_website_id']= $website_id;
+        return $this->service->create($request->all());
+    }
+    public function validateCreateWebsiteService(Request $request){
+        return $this->apiValidation($request, [
+            'name_ar' => 'required|min:2|max:200',
+            'name_en' => 'required|min:2|max:200',
+            'description_ar' => 'required|min:2|max:200',
+            'description_en' => 'required|min:2|max:200',
+        ]);
+    }
+    public function updateWebsiteService(Request $request){
+        return $this->service->where('id', $request->id)->update($request->all());
+    }
+    public function deleteWebsiteService(Request $request){
+        $this->service->where('id', $request->id)->delete();
+    }
+
+
+    //Team
+
+    public function createTeamMember(Request $request){
+        $currentUser = $request->auth;
+        $website_id = $this->getWebsiteId($currentUser->id);
+        $request['organization_website_id']= $website_id;
+        return $this->team->create($request->all());
+    }
+    public function validateCreateTeamMember(Request $request){
+        return $this->apiValidation($request, [
+            'name_ar' => 'required|min:2|max:200',
+            'name_en' => 'required|min:2|max:200',
+            'job_title_ar' => 'required|min:2|max:200',
+            'job_title_en' => 'required|min:2|max:200',
+            'photo' => 'required',
+            'facebook' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
+            'twitter' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
+            'linkedin' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)linkedin\.com\/([a-zA-Z0-9_]*)$/',
+        ]);
+    }
+    public function updateTeamMember(Request $request){
+        return $this->team->where('id', $request->id)->update($request->all());
+    }
+    public function deleteTeamMember(Request $request){
+        $this->team->where('id', $request->id)->delete();
+    }
+
+    //Portfolio
+
+    public function createWebsitePortfolio(Request $request){
+        $currentUser = $request->auth;
+        $website_id = $this->getWebsiteId($currentUser->id);
+        $request['organization_website_id']= $website_id;
+        return $this->portfolio->create($request->all());
+    }
+    public function validateCreateWebsitePortfolio(Request $request){
+        return $this->apiValidation($request, [
+            'name_ar' => 'required|min:2|max:200',
+            'name_en' => 'required|min:2|max:200',
+            'image' => 'required',
+        ]);
+    }
+    public function updateWebsitePortfolio(Request $request){
+        return $this->portfolio->where('id', $request->id)->update($request->all());
+    }
+    public function deleteWebsitePortfolio(Request $request){
+        $this->portfolio->where('id', $request->id)->delete();
+    }
+
 
 
     public function validateContactFormData(Request $request){
@@ -91,8 +197,5 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
     }
 
 
-    public function getUserById($user_id){
-        return $this->user->where('id', $user_id)->first();
-    }
 
 }

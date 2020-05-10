@@ -64,33 +64,53 @@ $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 //Dashboard
     $router->group(['prefix' => 'dashboardApi'], function () use ($router) {
         $router->post('/user/{user_id}/update', 'UserController@updateUser');
-        $router->post('/personalSite/{user_id}/update', 'PersonalWebsiteController@updateWebsite');
 
-        //Educations
-        $router->get('personalSite/educationDegrees', 'PersonalWebsiteController@educationDegrees');
-        $router->post('personalSite/userEducation/create', 'PersonalWebsiteController@createEducation');
-        $router->post('personalSite/userEducation/{id}/update', 'PersonalWebsiteController@UpdateEducation');
-        $router->delete('personalSite/userEducation/delete', 'PersonalWebsiteController@deleteEducation');
-        //Languages
-        $router->get('/personalSite/languages', 'PersonalWebsiteController@languages');
-        $router->get('/personalSite/languageLevels', 'PersonalWebsiteController@languageLevels');
-        $router->post('/personalSite/userLanguage/create', 'PersonalWebsiteController@createLanguage');
-        $router->delete('/personalSite/userLanguage/delete', 'PersonalWebsiteController@deleteLanguage');
+        //Personal Website Dashboard
+        $router->group(['prefix' => 'personalSite'], function () use ($router) {
+            $router->post('/{user_id}/update', 'PersonalWebsiteController@updateWebsite');
+            //Educations
+            $router->get('educationDegrees', 'PersonalWebsiteController@educationDegrees');
+            $router->post('userEducation/create', 'PersonalWebsiteController@createEducation');
+            $router->post('userEducation/{id}/update', 'PersonalWebsiteController@UpdateEducation');
+            $router->delete('userEducation/delete', 'PersonalWebsiteController@deleteEducation');
+            //Languages
+            $router->get('languages', 'PersonalWebsiteController@languages');
+            $router->get('languageLevels', 'PersonalWebsiteController@languageLevels');
+            $router->post('userLanguage/create', 'PersonalWebsiteController@createLanguage');
+            $router->delete('userLanguage/delete', 'PersonalWebsiteController@deleteLanguage');
+            //Skills
+            $router->post('userSkill/create', 'PersonalWebsiteController@createSkill');
+            $router->post('userSkill/{id}/update', 'PersonalWebsiteController@updateSkill');
+            $router->delete('userSkill/delete', 'PersonalWebsiteController@deleteSkill');
+            //Career
+            $router->post('userCareer/create', 'PersonalWebsiteController@createCareer');
+            $router->post('userCareer/{id}/update', 'PersonalWebsiteController@updateCareer');
+            $router->delete('userCareer/delete', 'PersonalWebsiteController@deleteCareer');
+            //Project
+            $router->post('userProject/create', 'PersonalWebsiteController@createProject');
+            $router->post('userProject/{id}/update', 'PersonalWebsiteController@updateProject');
+            $router->delete('userProject/delete', 'PersonalWebsiteController@deleteProject');
+        });
 
-        //Skills
-        $router->post('/personalSite/userSkill/create', 'PersonalWebsiteController@createSkill');
-        $router->post('/personalSite/userSkill/{id}/update', 'PersonalWebsiteController@updateSkill');
-        $router->delete('/personalSite/userSkill/delete', 'PersonalWebsiteController@deleteSkill');
+        //Organization Website Dashboard
+        $router->group(['prefix' => 'organizationSite'], function () use ($router) {
+            $router->post('{id}/update', 'OrganizationWebsiteController@updateWebsite');
+            //Services
+            $router->post('service/create', 'OrganizationWebsiteController@createService');
+            $router->post('service/{id}/update', 'OrganizationWebsiteController@updateService');
+            $router->delete('service/delete', 'OrganizationWebsiteController@deleteService');
+            //Team Member
+            $router->post('teamMember/create', 'OrganizationWebsiteController@createTeam');
+            $router->post('teamMember/{id}/update', 'OrganizationWebsiteController@updateTeam');
+            $router->delete('teamMember/delete', 'OrganizationWebsiteController@deleteTeam');
 
-        //Career
-        $router->post('/personalSite/userCareer/create', 'PersonalWebsiteController@createCareer');
-        $router->post('/personalSite/userCareer/{id}/update', 'PersonalWebsiteController@updateCareer');
-        $router->delete('/personalSite/userCareer/delete', 'PersonalWebsiteController@deleteCareer');
+            //Portfolio
+            $router->post('portfolio/create', 'OrganizationWebsiteController@createPortfolio');
+            $router->post('portfolio/{id}/update', 'OrganizationWebsiteController@updatePortfolio');
+            $router->delete('portfolio/delete', 'OrganizationWebsiteController@deletePortfolio');
 
-        //Project
-        $router->post('/personalSite/userProject/create', 'PersonalWebsiteController@createProject');
-        $router->post('/personalSite/userProject/{id}/update', 'PersonalWebsiteController@updateProject');
-        $router->delete('/personalSite/userProject/delete', 'PersonalWebsiteController@deleteProject');
+        });
+
 
     });
 //Domains

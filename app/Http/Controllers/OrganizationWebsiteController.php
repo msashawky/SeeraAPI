@@ -51,4 +51,109 @@ class OrganizationWebsiteController extends Controller
         return $this->notFoundResponse("Team not found");
     }
 
+    //Organization Website DashboardMethods
+
+    /////////Service///////
+//    public function createService(Request $request){
+//        $validation = $this->personalWebsiteRepository->validateCreateWebsiteCareer($request);
+//
+//        if ($validation instanceof \Illuminate\Http\Response) {
+//
+//            return $validation;
+//        }
+//        $career = $this->personalWebsiteRepository->createWebsiteCareer($request);
+//        return $this->apiResponse($career);
+//
+//    }
+
+    public function updateWebsite(Request $request){
+        $validation = $this->organizationWebsiteRepository->validateCreateWebsite($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $data = $this->organizationWebsiteRepository->updateWebsiteData($request);
+        return $this->apiResponse($data);
+    }
+
+
+    //Servies
+    public function createService(Request $request){
+        $validation = $this->organizationWebsiteRepository->validateCreateWebsiteService($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $service = $this->organizationWebsiteRepository->createWebsiteService($request);
+        return $this->apiResponse($service);
+
+    }
+    public function updateService(Request $request){
+        $validation = $this->organizationWebsiteRepository->validateCreateWebsiteService($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $service = $this->organizationWebsiteRepository->updateWebsiteService($request);
+        return $this->apiResponse($service);
+    }
+    public function deleteService(Request $request){
+        return $this->organizationWebsiteRepository->deleteWebsiteService($request);
+    }
+
+    //Team
+    public function createTeam(Request $request){
+        $validation = $this->organizationWebsiteRepository->validateCreateTeamMember($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $teamMember = $this->organizationWebsiteRepository->createTeamMember($request);
+        return $this->apiResponse($teamMember);
+
+    }
+    public function updateTeam(Request $request){
+        $validation = $this->organizationWebsiteRepository->validateCreateTeamMember($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $teamMember = $this->organizationWebsiteRepository->updateTeamMember($request);
+        return $this->apiResponse($teamMember);
+    }
+    public function deleteTeam(Request $request){
+        return $this->organizationWebsiteRepository->deleteTeamMember($request);
+    }
+
+    //Portfolio
+    public function createPortfolio(Request $request){
+        $validation = $this->organizationWebsiteRepository->validateCreateWebsitePortfolio($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $portfolio = $this->organizationWebsiteRepository->createWebsitePortfolio($request);
+        return $this->apiResponse($portfolio);
+
+    }
+    public function updatePortfolio(Request $request){
+        $validation = $this->organizationWebsiteRepository->validateCreateWebsitePortfolio($request);
+
+        if ($validation instanceof \Illuminate\Http\Response) {
+
+            return $validation;
+        }
+        $portfolio = $this->organizationWebsiteRepository->updateWebsitePortfolio($request);
+        return $this->apiResponse($portfolio);
+    }
+    public function deletePortfolio(Request $request){
+        return $this->organizationWebsiteRepository->deleteWebsitePortfolio($request);
+    }
+
 }
