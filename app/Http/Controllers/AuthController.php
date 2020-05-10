@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CurrentUserDataResource;
 use App\Repositories\AclRepository;
 use Illuminate\Http\Request;
 
@@ -76,5 +77,11 @@ class AuthController extends Controller
     {
         return $this->aclRepository->forgetPasswordCodeActivation($request);
 
+    }
+
+    public function currentUser(Request $request){
+        $user = $this->aclRepository->getCurrentUser($request);
+        if($user)
+            return $this->apiResponse(CurrentUserDataResource::make($user));
     }
 }
