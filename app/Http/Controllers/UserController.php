@@ -113,6 +113,11 @@ class UserController extends Controller
             return $this->apiResponse(CountriesResource::collection($countries));
         return $this->notFoundResponse("no countries found");
     }
+//    public function uploadImage(Request $request, $directory){
+//        $currentUser = $request->auth;
+//        $user_id= $currentUser->id;
+//        return \response()->json(upload_single_photo($request->file('file'),'/images/upload_images/presonal_websites/'.$directory, $user_id),200);
+//    }
 
 
 }
