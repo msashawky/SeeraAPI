@@ -135,7 +135,12 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
         $currentUser = $request->auth;
         $website_id = $this->getWebsiteId($currentUser->id);
         $request['organization_website_id']= $website_id;
+        $photo =  upload_single_photo($request->file('photo'),'/images/upload_images/organization_website/team/');
+        $request['photo'] = $photo;
+//        dd($request['photo']);
         return $this->team->create($request->all());
+//        return \response()->json(upload_single_photo($request->file('photo'),'/images/upload_images/organization_website/team/'),200);
+
     }
     public function validateCreateTeamMember(Request $request){
         return $this->apiValidation($request, [

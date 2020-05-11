@@ -93,6 +93,8 @@ Project $project, Mobile $mobile, Website $website, Language $language, Language
         return $this->degree->all();
     }
     public function createWebsiteEducation(Request $request){
+        $currentUser = $request->auth;
+        $request['user_id']= $currentUser->id;
         return $this->userEducation->create($request->all());
     }
 
@@ -130,6 +132,8 @@ Project $project, Mobile $mobile, Website $website, Language $language, Language
 
     public function createWebsiteLanguage(Request $request){
         if($this->checkWebsiteLanguage($request->user_id, $request->language_id) == null)
+            $currentUser = $request->auth;
+            $request['user_id']= $currentUser->id;
             return $this->userLanguage->create($request->all());
     }
 

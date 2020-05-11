@@ -111,18 +111,30 @@ $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 
         });
 
+        $router->group(['prefix' => 'admin'], function () use ($router) {
+            $router->get('personalWebsites/count', 'AdminController@personalWebsitesCount');
+            $router->get('organizationWebsites/count', 'AdminController@organizationWebsitesCount');
+            $router->get('newsletters/count', 'AdminController@newslettersCount');
+            $router->get('infoWebsite/newsletters', 'AdminController@newsletters');
+            $router->get('infoWebsite/personalWebsites', 'AdminController@personalWebsites');
+            $router->get('infoWebsite/organizationWebsites', 'AdminController@organizationWebsites');
+
+            $router->post('infoWebsite/update', 'AdminController@updateWebsite');
+
+        });
+
 
     });
 //Domains
-    $router->group(['prefix' => 'domains'], function () use ($router) {
-        $router->post('/normalDomainCheck', 'InfoWebsiteController@normalDomainCheck');
-    });
+
 
     //CurrentUser
     $router->post('/currentUser', 'AuthController@currentUser');
 });
 
-
+$router->group(['prefix' => 'domains'], function () use ($router) {
+    $router->post('/normalDomainCheck', 'InfoWebsiteController@normalDomainCheck');
+});
 #All Auth
 $router->group(['prefix' => 'auth'], function () use ($router) {
 
