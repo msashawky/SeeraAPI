@@ -32,6 +32,7 @@ class UserDataResource extends JsonResource
             'career_started_at' => $this->career_started_at,
             'country_en' => $this->country->name_en,
             'country_ar' => $this->country->name_ar,
+            'country_id' => $this->country->id,
             'city' => $this->city,
             'facebook' => $this->website->facebook,
             'twitter' => $this->website->twitter,
