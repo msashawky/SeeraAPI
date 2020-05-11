@@ -126,15 +126,15 @@ $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 
     });
 //Domains
-    $router->group(['prefix' => 'domains'], function () use ($router) {
-        $router->post('/normalDomainCheck', 'InfoWebsiteController@normalDomainCheck');
-    });
+
 
     //CurrentUser
     $router->post('/currentUser', 'AuthController@currentUser');
 });
 
-
+$router->group(['prefix' => 'domains'], function () use ($router) {
+    $router->post('/normalDomainCheck', 'InfoWebsiteController@normalDomainCheck');
+});
 #All Auth
 $router->group(['prefix' => 'auth'], function () use ($router) {
 
