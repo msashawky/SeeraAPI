@@ -12,6 +12,7 @@ class WebsiteNewslettertResource extends JsonResource
     {
         return [
             'email' => $this->email,
+            'added_at' => $this->created_at
         ];
     }
 
