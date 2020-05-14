@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Interfaces\AclRepositoryInterface;
 
 use App\Models\Website;
+use App\Models\OrganizationWebsite;
 use App\Traits\ApiResponseTrait;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
@@ -84,14 +85,26 @@ class AclRepository implements AclRepositoryInterface
             $userActivation->token = str_random(30);
             $userActivation->save();
 
-            //Create not completed website
-            $website = new Website();
-            $website->user_id = $input['user_id'];
-            $website->domain = $input['domain'];
-            $website->domain_type = $input['domain_type'];
-            $website->save();
+            //Create not completed Personal website
+            if($input['userType'] == 'personal_website'){
+                $website = new Website();
+                $website->user_id = $input['user_id'];
+                $website->domain = $input['domain'];
+                $website->domain_type = $input['domain_type'];
+                $website->save();
+            }
+            elseif($input['userType'] == 'organization_website'){
+//                dd($input['userType']);
+                $website = new OrganizationWebsite();
+                $website->user_id = $input['user_id'];
+                $website->domain = $input['domain'];
+                $website->domain_type = $input['domain_type'];
+                $website->save();
+
+            }
+
             $activationToken = $input = $this->userActivation->orderBy('id', 'DESC')->value('token');
-            $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="user/activation/'.$activationToken.'">Activate</a>';
+            $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="http://www.seeraonline.new/auth/user/activation/'.$activationToken.'">Activate</a>';
             $headers = "Content-Type: text/html; charset=UTF-8\r\n";
 
 //            mail($request->email,"Seera - Activation Code", $message, $headers);

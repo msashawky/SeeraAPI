@@ -109,7 +109,7 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
 
     public function createWebsiteService(Request $request){
         $currentUser = $request->auth;
-        $website_id = $this->getWebsiteId($currentUser->id);
+        $website_id = $this->getWebsiteId($currentUser->id);//dd($website_id);
         $request['organization_website_id']= $website_id;
         return $this->service->create($request->all());
     }
