@@ -132,15 +132,13 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
     //Team
 
     public function createTeamMember(Request $request){
+
         $currentUser = $request->auth;
         $website_id = $this->getWebsiteId($currentUser->id);
         $request['organization_website_id']= $website_id;
-        $photo =  upload_single_photo($request->file('photo'),'/images/upload_images/organization_website/team/');
-        $request['photo'] = $photo;
-//        dd($request['photo']);
+        $photo =  upload_single_photo($request->file('image'),'/images/upload_images/organization_website/team/');
+        $request['photo'] = 'images/upload_images/organization_website/team/'.$photo;
         return $this->team->create($request->all());
-//        return \response()->json(upload_single_photo($request->file('photo'),'/images/upload_images/organization_website/team/'),200);
-
     }
     public function validateCreateTeamMember(Request $request){
         return $this->apiValidation($request, [
@@ -148,7 +146,7 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
             'name_en' => 'required|min:2|max:200',
             'job_title_ar' => 'required|min:2|max:200',
             'job_title_en' => 'required|min:2|max:200',
-            'photo' => 'required',
+            'image' => 'required',
             'facebook' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
             'twitter' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
             'linkedin' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)linkedin\.com\/([a-zA-Z0-9_]*)$/',
