@@ -18,6 +18,8 @@ class CurrentUserDataResource extends JsonResource
             'name_en' => $this->name_en,
             'username' => $this->username,
             'gender' => $this->gender,
+            'organization_website_id' => $this->organizationWebsite->id,
+            'personal_website_id' => $this->website->id
 
         ];
     }
