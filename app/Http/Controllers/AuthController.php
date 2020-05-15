@@ -85,7 +85,7 @@ class AuthController extends Controller
         $user = $this->aclRepository->getCurrentUser($request);
         if($user->userType == 'personal_website'){
             return $this->apiResponse(CurrentUserPersonalWebsiteDataResource::make($user));}
-        elseif($user->userType == 'personal_website'){
+        elseif($user->userType == 'organization_website'){
             return $this->apiResponse(CurrentUserOrganizationDataResource::make($user));}
         else{
             return $this->apiResponse(CurrentUserDataResource::make($user));}
