@@ -164,15 +164,15 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
         $currentUser = $request->auth;
         $website_id = $this->getWebsiteId($currentUser->id);
         $request['organization_website_id']= $website_id;
-        $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/portfolio/');
-        $request['photo'] = 'images/upload_images/organization_website/portfolio/'.$photo;
+        $photo =  upload_single_photo($request->file('photo'),'images/upload_images/organization_website/portfolio/');
+        $request['image'] = 'images/upload_images/organization_website/portfolio/'.$photo;
         return $this->portfolio->create($request->all());
     }
     public function validateCreateWebsitePortfolio(Request $request){
         return $this->apiValidation($request, [
             'name_ar' => 'required|min:2|max:200',
             'name_en' => 'required|min:2|max:200',
-            'image' => 'required',
+            'photo' => 'required',
         ]);
     }
     public function updateWebsitePortfolio(Request $request){
