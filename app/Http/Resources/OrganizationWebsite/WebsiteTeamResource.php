@@ -14,7 +14,7 @@ class WebsiteTeamResource extends JsonResource
             'id' => $this->id,
             'organization_website_id' => $this->organization_website_id,
             'team_member_name_ar' => $this->name_ar,
-            'team_member_name_ar' => $this->name_en,
+            'team_member_name_en' => $this->name_en,
             'job_title_ar' => $this->job_title_ar,
             'job_title_en' => $this->job_title_en,
             'team_member_photo' => $this->photo,

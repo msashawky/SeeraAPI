@@ -132,11 +132,10 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
     //Team
 
     public function createTeamMember(Request $request){
-
         $currentUser = $request->auth;
         $website_id = $this->getWebsiteId($currentUser->id);
         $request['organization_website_id']= $website_id;
-        $photo =  upload_single_photo($request->file('image'),'/images/upload_images/organization_website/team/');
+        $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/team/');
         $request['photo'] = 'images/upload_images/organization_website/team/'.$photo;
         return $this->team->create($request->all());
     }
@@ -165,6 +164,8 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
         $currentUser = $request->auth;
         $website_id = $this->getWebsiteId($currentUser->id);
         $request['organization_website_id']= $website_id;
+        $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/portfolio/');
+        $request['photo'] = 'images/upload_images/organization_website/portfolio/'.$photo;
         return $this->portfolio->create($request->all());
     }
     public function validateCreateWebsitePortfolio(Request $request){
