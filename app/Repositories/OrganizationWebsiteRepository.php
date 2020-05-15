@@ -102,7 +102,7 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
     public function updateWebsiteData(Request $request){
         $currentUser = $request->auth;
         $request['user_id']= $currentUser->id;
-        $photo =  upload_single_photo($request->file('image'),'public/images/upload_images/organization_website/backgrounds/');
+        $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/backgrounds/');
         $request['background_image'] = 'public/images/upload_images/organization_website/backgrounds/'.$photo;
         return $this->organizationWebsite->where('id', $request->id)->update($request->all());
     }

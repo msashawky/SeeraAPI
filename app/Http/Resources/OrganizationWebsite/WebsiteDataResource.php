@@ -12,6 +12,7 @@ class WebsiteDataResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'organization_website_id' => $this->organizationWebsite->id,
             'name_ar' => $this->name_ar,
             'name_en' => $this->name_en,
             'email' => $this->email,
