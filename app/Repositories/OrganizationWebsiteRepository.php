@@ -102,8 +102,8 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
     public function updateWebsiteData(Request $request){
         $currentUser = $request->auth;
         $request['user_id']= $currentUser->id;
-        $photo =  upload_single_photo($request->file('image'),'public/images/upload_images/organization_website/team/');
-        $request['photo'] = 'public/images/upload_images/organization_website/team/'.$photo;
+        $photo =  upload_single_photo($request->file('image'),'public/images/upload_images/organization_website/backgrounds/');
+        $request['background_image'] = 'public/images/upload_images/organization_website/backgrounds/'.$photo;
         return $this->organizationWebsite->where('id', $request->id)->update($request->all());
     }
 
@@ -137,7 +137,7 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
         $currentUser = $request->auth;
         $website_id = $this->getWebsiteId($currentUser->id);
         $request['organization_website_id']= $website_id;
-        $photo =  upload_single_photo($request->file('image'),'public/images/upload_images/organization_website/team/');
+        $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/team/');
         $request['photo'] = 'public/images/upload_images/organization_website/team/'.$photo;
         return $this->team->create($request->all());
     }
@@ -166,7 +166,7 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
         $currentUser = $request->auth;
         $website_id = $this->getWebsiteId($currentUser->id);
         $request['organization_website_id']= $website_id;
-        $photo =  upload_single_photo($request->file('photo'),'public/images/upload_images/organization_website/portfolio/');
+        $photo =  upload_single_photo($request->file('photo'),'images/upload_images/organization_website/portfolio/');
         $request['image'] = 'public/images/upload_images/organization_website/portfolio/'.$photo;
         return $this->portfolio->create($request->all());
     }
