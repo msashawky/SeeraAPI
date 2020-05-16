@@ -101,10 +101,16 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
     }
     public function updateWebsiteData(Request $request){
         $currentUser = $request->auth;
-        $request['user_id']= $currentUser->id;
+        $website_id = $this->getWebsiteId($currentUser->id);
         $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/backgrounds/');
         $request['background_image'] = 'public/images/upload_images/organization_website/backgrounds/'.$photo;
-        return $this->organizationWebsite->where('id', $request->id)->update($request->all());
+        return $this->organizationWebsite->where('id', $website_id)
+            ->update(['website_name_ar' =>$request['website_name_ar'], 'website_name_en' =>$request['website_name_en'],
+                'domain' =>$request['domain'],'domain_type' =>$request['domain_type'],'about_us_ar' =>$request['about_us_ar'],
+                'about_us_en' =>$request['about_us_en'],'address_en' =>$request['address_en'],'address_ar' =>$request['address_ar'],
+                'email'=>$request['email'],'facebook'=>$request['facebook'],'twitter'=>$request['twitter'],'linkedin'=>$request['linkedin'],
+                'youtube'=>$request['youtube'], 'google_plus'=>$request['google_plus'],'behance'=>$request['behance'], 'instagram'=>$request['instagram'],
+                'pinterest'=>$request['pinterest'],'vimeo'=>$request['vimeo'],'background_image' =>$request['background_image']]);
     }
 
     //Services
@@ -153,8 +159,26 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
             'linkedin' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)linkedin\.com\/([a-zA-Z0-9_]*)$/',
         ]);
     }
+    public function validateUpdateTeamMember(Request $request){
+        return $this->apiValidation($request, [
+            'name_ar' => 'required|min:2|max:200',
+            'name_en' => 'required|min:2|max:200',
+            'job_title_ar' => 'required|min:2|max:200',
+            'job_title_en' => 'required|min:2|max:200',
+            'facebook' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
+            'twitter' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
+            'linkedin' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)linkedin\.com\/([a-zA-Z0-9_]*)$/',
+        ]);
+    }
     public function updateTeamMember(Request $request){
-        return $this->team->where('id', $request->id)->update($request->all());
+        if($request->file('image')){
+            $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/portfolio/');
+            $request['photo'] = 'public/images/upload_images/organization_website/portfolio/'.$photo;
+            return $this->team->where('id', $request->id)->update(['name_ar' => $request['name_ar'], 'name_en'=>$request['name_en'],
+                'job_title_ar' => $request['job_title_ar'],'job_title_en' => $request['job_title_en'],'photo'=> $request['photo']]);
+        }
+        return $this->team->where('id', $request->id)->update(['name_ar' => $request['name_ar'],
+            'name_en'=>$request['name_en'], 'job_title_ar' => $request['job_title_ar'],'job_title_en' => $request['job_title_en']]);
     }
     public function deleteTeamMember(Request $request){
         $this->team->where('id', $request->id)->delete();
@@ -177,8 +201,21 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
             'photo' => 'required',
         ]);
     }
+    public function validateUpdateWebsitePortfolio(Request $request){
+        return $this->apiValidation($request, [
+            'name_ar' => 'required|min:2|max:200',
+            'name_en' => 'required|min:2|max:200',
+        ]);
+    }
     public function updateWebsitePortfolio(Request $request){
-        return $this->portfolio->where('id', $request->id)->update($request->all());
+        if($request->file('photo')){
+            $photo =  upload_single_photo($request->file('photo'),'images/upload_images/organization_website/portfolio/');
+            $request['image'] = 'public/images/upload_images/organization_website/portfolio/'.$photo;
+            return $this->portfolio->where('id', $request->id)->update(['name_ar' => $request['name_ar'], 'name_en'=>$request['name_en'],
+                'image'=> $request['image']]);
+        }
+        return $this->portfolio->where('id', $request->id)->update(['name_ar' => $request['name_ar'],
+            'name_en'=>$request['name_en']]);
     }
     public function deleteWebsitePortfolio(Request $request){
         $this->portfolio->where('id', $request->id)->delete();
