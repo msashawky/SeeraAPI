@@ -55,7 +55,7 @@ $router->group(['prefix' => 'organizationWebsiteApi'], function () use ($router)
 $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 
     $router->post('changePassword', 'AuthController@changePassword');
-
+    $router->get('payment', 'UserController@payment');
 
 
 
