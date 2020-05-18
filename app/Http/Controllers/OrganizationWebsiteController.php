@@ -117,7 +117,7 @@ class OrganizationWebsiteController extends Controller
 
     }
     public function updateTeam(Request $request){
-        $validation = $this->organizationWebsiteRepository->validateCreateTeamMember($request);
+        $validation = $this->organizationWebsiteRepository->validateUpdateTeamMember($request);
 
         if ($validation instanceof \Illuminate\Http\Response) {
 
@@ -143,7 +143,7 @@ class OrganizationWebsiteController extends Controller
 
     }
     public function updatePortfolio(Request $request){
-        $validation = $this->organizationWebsiteRepository->validateCreateWebsitePortfolio($request);
+        $validation = $this->organizationWebsiteRepository->validateUpdateWebsitePortfolio($request);
 
         if ($validation instanceof \Illuminate\Http\Response) {
 

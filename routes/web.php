@@ -19,7 +19,7 @@ $router->get('/', function () use ($router) {
 //});
 $router->get('countries', 'UserController@countries');
 
-
+//$router->get('payment', function (){return "test";});
 //Website
 $router->group(['prefix' => 'websiteApi'], function () use ($router) {
     $router->get('/{domain}', 'UserController@userData');
@@ -57,12 +57,15 @@ $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
     $router->post('changePassword', 'AuthController@changePassword');
 
 
-
-
+    $router->post('payment', 'UserController@payment');
+    ;
 
 
 //Dashboard
     $router->group(['prefix' => 'dashboardApi'], function () use ($router) {
+        $router->get('paidClients', 'UserController@donePaymentClients');
+        $router->get('notPaidClients', 'UserController@notDonePaymentClients');
+
         $router->post('/user/{user_id}/update', 'UserController@updateUser');
 
         //Personal Website Dashboard

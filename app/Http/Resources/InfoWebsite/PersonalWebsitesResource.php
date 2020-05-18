@@ -29,6 +29,7 @@ class PersonalWebsitesResource extends JsonResource
             'owner_name_ar' => $this->user->name_ar,
             'owner_name_en' => $this->user->name_en,
             'owner_email' => $this->user->email,
+            'created_at' => $this->created_at
         ];
     }
 

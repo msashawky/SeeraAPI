@@ -12,6 +12,7 @@ class WebsiteDataResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'organization_website_id' => $this->organizationWebsite->id,
             'name_ar' => $this->name_ar,
             'name_en' => $this->name_en,
             'email' => $this->email,
@@ -22,6 +23,7 @@ class WebsiteDataResource extends JsonResource
             'martial_status' => $this->martial_status,
             'country_ar' => $this->country->name_ar,
             'country_en' => $this->country->name_en,
+            'country_id' => $this->country->id,
             'city' => $this->city,
             'job_title_ar' => $this->job_title_ar,
             'job_title_en' => $this->job_title_en,

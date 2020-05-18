@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CurrentUserDataResource extends JsonResource
+class CurrentUserPersonalWebsiteDataResource extends JsonResource
 {
 
     //for security and manipulate with data
@@ -18,6 +18,8 @@ class CurrentUserDataResource extends JsonResource
             'name_en' => $this->name_en,
             'username' => $this->username,
             'gender' => $this->gender,
+            'personal_website_id' => $this->website->id
+
         ];
     }
 

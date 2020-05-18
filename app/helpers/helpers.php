@@ -55,8 +55,8 @@ if (!function_exists('upload_single_photo')) {
     function upload_single_photo($file, $destination)
     {
         $image = $file;
-        $name =   date('d_m_Y_H_i') . '_' .$image->getClientOriginalName();
-        $image->move("storage/" .$destination, $name);//public_path() .
+        $name =   date('d_m_Y_H_i');// . '_' .$image->getClientOriginalName();
+        $image->move("public/" .$destination, $name);//$image->move("storage/" .$destination, $name);//public_path() .
         return $name;
     }
 

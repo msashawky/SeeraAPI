@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Interfaces\AclRepositoryInterface;
 
 use App\Models\Website;
+use App\Models\OrganizationWebsite;
 use App\Traits\ApiResponseTrait;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\ExpiredException;
 use Exception;
 use Illuminate\Support\Str;
+use App\Models\Payment;
 
 class AclRepository implements AclRepositoryInterface
 {
@@ -84,14 +86,38 @@ class AclRepository implements AclRepositoryInterface
             $userActivation->token = str_random(30);
             $userActivation->save();
 
-            //Create not completed website
-            $website = new Website();
-            $website->user_id = $input['user_id'];
-            $website->domain = $input['domain'];
-            $website->domain_type = $input['domain_type'];
-            $website->save();
+            //Create not completed Personal website
+            if($input['userType'] == 'personal_website'){
+                $website = new Website();
+                $website->user_id = $input['user_id'];
+                $website->domain = $input['domain'];
+                $website->domain_type = $input['domain_type'];
+                $website->save();
+                if($website->domain_type == 'premium'){
+                    $payment = new Payment();
+                    $payment->user_id = $user->id;
+                    $payment->amount_of_money = 100;
+                    $payment->save();
+                }
+            }
+            elseif($input['userType'] == 'organization_website'){
+//                dd($input['userType']);
+                $website = new OrganizationWebsite();
+                $website->user_id = $input['user_id'];
+                $website->domain = $input['domain'];
+                $website->domain_type = $input['domain_type'];
+                $website->save();
+                if($website->domain_type == 'premium'){
+                    $payment = new Payment();
+                    $payment->user_id = $user->id;
+                    $payment->amount_of_money = 200;
+                    $payment->save();
+                }
+
+            }
+
             $activationToken = $input = $this->userActivation->orderBy('id', 'DESC')->value('token');
-            $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="user/activation/'.$activationToken.'">Activate</a>';
+            $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="http://www.seeraonline.new/auth/user/activation/'.$activationToken.'">Activate</a>';
             $headers = "Content-Type: text/html; charset=UTF-8\r\n";
 
 //            mail($request->email,"Seera - Activation Code", $message, $headers);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CurrentUserDataResource;
+use App\Http\Resources\CurrentUserOrganizationDataResource;
+use App\Http\Resources\CurrentUserPersonalWebsiteDataResource;
 use App\Repositories\AclRepository;
 use Illuminate\Http\Request;
 
@@ -81,7 +83,12 @@ class AuthController extends Controller
 
     public function currentUser(Request $request){
         $user = $this->aclRepository->getCurrentUser($request);
-        if($user)
-            return $this->apiResponse(CurrentUserDataResource::make($user));
+        if($user->userType == 'personal_website'){
+            return $this->apiResponse(CurrentUserPersonalWebsiteDataResource::make($user));}
+        elseif($user->userType == 'organization_website'){
+            return $this->apiResponse(CurrentUserOrganizationDataResource::make($user));}
+        else{
+            return $this->apiResponse(CurrentUserDataResource::make($user));}
+
     }
 }
