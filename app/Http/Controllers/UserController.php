@@ -129,8 +129,14 @@ class UserController extends Controller
         return $this->notFoundResponse("no clients found");
     }
 
+    public function paid($user_id){
+        return $this->userRepository->isPaid($user_id);
+    }
+
     public function payment(Request $request){
-        return $this->userRepository->tapPayment($request);
+        if($this->userRepository->tapPayment($request)){
+            return redirect('http://dash.seeraonline.net/payment');
+        }
     }
 
 //    public function uploadImage(Request $request, $directory){

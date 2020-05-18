@@ -58,7 +58,7 @@ $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 
 
     $router->post('payment', 'UserController@payment');
-    ;
+    $router->get('isPaid', 'UserController@paid');
 
 
 //Dashboard
