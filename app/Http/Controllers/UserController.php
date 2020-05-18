@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\CountriesResource;
+use App\Http\Resources\PaidClientResource;
 use App\Http\Resources\UserEducationsResource;
 use App\Http\Resources\UserLanguagesResource;
 use App\Http\Resources\UserMobilesResource;
@@ -114,9 +115,24 @@ class UserController extends Controller
         return $this->notFoundResponse("no countries found");
     }
 
-    public function payment($data){
-        return $this->userRepository->tapPayment($data);
+    public function donePaymentClients(Request $request){
+       $clients = $this->userRepository->getDonePaymentClients($request);
+        if($clients)
+            return $this->apiResponse(PaidClientResource::collection($clients));
+        return $this->notFoundResponse("no clients found");
     }
+
+    public function notDonePaymentClients(Request $request){
+        $clients = $this->userRepository->getNotDonePaymentClients($request);
+        if($clients)
+            return $this->apiResponse(PaidClientResource::collection($clients));
+        return $this->notFoundResponse("no clients found");
+    }
+
+    public function payment(Request $request){
+        return $this->userRepository->tapPayment($request);
+    }
+
 //    public function uploadImage(Request $request, $directory){
 //        $currentUser = $request->auth;
 //        $user_id= $currentUser->id;

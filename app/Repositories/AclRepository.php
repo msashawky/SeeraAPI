@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\ExpiredException;
 use Exception;
 use Illuminate\Support\Str;
+use App\Models\Payment;
 
 class AclRepository implements AclRepositoryInterface
 {
@@ -92,6 +93,12 @@ class AclRepository implements AclRepositoryInterface
                 $website->domain = $input['domain'];
                 $website->domain_type = $input['domain_type'];
                 $website->save();
+                if($website->domain_type == 'premium'){
+                    $payment = new Payment();
+                    $payment->user_id = $user->id;
+                    $payment->amount_of_money = 100;
+                    $payment->save();
+                }
             }
             elseif($input['userType'] == 'organization_website'){
 //                dd($input['userType']);
@@ -100,6 +107,12 @@ class AclRepository implements AclRepositoryInterface
                 $website->domain = $input['domain'];
                 $website->domain_type = $input['domain_type'];
                 $website->save();
+                if($website->domain_type == 'premium'){
+                    $payment = new Payment();
+                    $payment->user_id = $user->id;
+                    $payment->amount_of_money = 200;
+                    $payment->save();
+                }
 
             }
 

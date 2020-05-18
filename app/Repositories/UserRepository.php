@@ -18,6 +18,7 @@ use App\Models\Project;
 use App\Models\Mobile;
 use App\Models\Website;
 use App\Models\Country;
+use App\Models\Payment;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\ExpiredException;
@@ -40,10 +41,11 @@ class UserRepository implements UserRepositoryInterface
     private $mobile;
     private $website;
     private $country;
+    private $payment;
 
 
     public function __construct(User $user, Career $career, UserEducation $userEducation, Skill $skill, UserLanguage $userLanguage,
-Project $project, Mobile $mobile, Website $website, Country $country)
+Project $project, Mobile $mobile, Website $website, Country $country, Payment $payment)
     {
         $this->user = $user;
         $this->career = $career;
@@ -54,6 +56,7 @@ Project $project, Mobile $mobile, Website $website, Country $country)
         $this->mobile = $mobile;
         $this->website = $website;
         $this->country = $country;
+        $this->payment = $payment;
     }
 
     public function getUserData($domain){
@@ -156,11 +159,18 @@ Project $project, Mobile $mobile, Website $website, Country $country)
 
 
 
-    public function tapPayment($data)
+    public function getDonePaymentClients(){
+        return $this->payment->where('paid', 1)->with(['user'])->get();
+    }
+    public function getNotDonePaymentClients(){
+        return $this->payment->where('paid', 0)->with(['user'])->get();
+    }
+
+    public function tapPayment($request)
     {
-        $amount = $data['amount'];
-        $name = $data['name'];
-        $order = $data['order_id'];
+        $amount = $request['amount'];
+        $name = $request['name'];
+        $order = $request['user_id'];
         $phone = null;
         $email = null;
 
