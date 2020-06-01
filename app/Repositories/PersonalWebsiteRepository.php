@@ -71,10 +71,10 @@ Project $project, Mobile $mobile, Website $website, Language $language, Language
 
     public function validateEditWebsite(Request $request){
         return $this->apiValidation($request, [
-            'website_name_ar' => 'required|min:3|max:100',
-            'website_name_en' => 'required|min:3|max:100',
-            'domain' => 'required',
-            'domain_type' => 'required',
+            'website_name_ar' => 'nullable|min:3|max:100',
+            'website_name_en' => 'nullable|min:3|max:100',
+            'domain' => 'nullable',
+            'domain_type' => 'nullable',
             'facebook' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
             'twitter' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
             'linkedin' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)linkedin\.com\/([a-zA-Z0-9_]*)$/',

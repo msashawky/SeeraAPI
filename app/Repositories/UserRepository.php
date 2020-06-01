@@ -167,7 +167,7 @@ Project $project, Mobile $mobile, Website $website, Country $country, Payment $p
     }
 
     public function isPaid($user_id){
-        $payment = $this->payment->where('user_id', $user_id)->value('paid');
+        $payment = $this->payment->where('user_id', $user_id)->first();
         if($payment)
             return $payment->paid;
         return null;

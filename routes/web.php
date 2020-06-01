@@ -52,13 +52,14 @@ $router->group(['prefix' => 'organizationWebsiteApi'], function () use ($router)
     $router->get('/{website_id}/team', 'OrganizationWebsiteController@websiteTeam');
     $router->post('/{user_id}/contact', 'OrganizationWebsiteController@contact');
 });
+$router->post('payment', 'UserController@payment');
 $router->group(['middleware' => ['jwt.auth']], function () use ($router) {
 
     $router->post('changePassword', 'AuthController@changePassword');
 
 
-    $router->post('payment', 'UserController@payment');
-    $router->get('isPaid', 'UserController@paid');
+
+    $router->get('isPaid/{id}', 'UserController@paid');
 
 
 //Dashboard
