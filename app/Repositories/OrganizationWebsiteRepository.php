@@ -79,15 +79,15 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
 
     public function validateCreateWebsite(Request $request){
         return $this->apiValidation($request, [
-            'website_name_ar' => 'required|min:3|max:100',
-            'website_name_en' => 'required|min:3|max:100',
-            'email' => 'required|email',
-            'domain' => 'required',
-            'domain_type' => 'required',
-            'about_us_ar' => 'required|min:5|max:200',
-            'about_us_en' => 'required|min:5|max:200',
-            'address_ar' => 'required|min:5|max:200',
-            'address_en' => 'required|min:5|max:200',
+            'website_name_ar' => 'nullable|min:3|max:100',
+            'website_name_en' => 'nullable|min:3|max:100',
+            'email' => 'nullable|email',
+            'domain' => 'nullable',
+            'domain_type' => 'nullable',
+            'about_us_ar' => 'nullable|min:5|max:200',
+            'about_us_en' => 'nullable|min:5|max:200',
+            'address_ar' => 'nullable|min:5|max:200',
+            'address_en' => 'nullable|min:5|max:200',
             'facebook' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
             'twitter' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
             'linkedin' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)linkedin\.com\/([a-zA-Z0-9_]*)$/',
@@ -102,8 +102,12 @@ class OrganizationWebsiteRepository //implements OrganizationWebsiteRepositoryIn
     public function updateWebsiteData(Request $request){
         $currentUser = $request->auth;
         $website_id = $this->getWebsiteId($currentUser->id);
-        $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/backgrounds/');
-        $request['background_image'] = 'public/images/upload_images/organization_website/backgrounds/'.$photo;
+        if($request->file('image')){
+            $photo =  upload_single_photo($request->file('image'),'images/upload_images/organization_website/backgrounds/');
+            $request['background_image'] = 'public/images/upload_images/organization_website/backgrounds/'.$photo;
+        }
+
+
         return $this->organizationWebsite->where('id', $website_id)
             ->update(['website_name_ar' =>$request['website_name_ar'], 'website_name_en' =>$request['website_name_en'],
                 'domain' =>$request['domain'],'domain_type' =>$request['domain_type'],'about_us_ar' =>$request['about_us_ar'],

@@ -166,6 +166,13 @@ Project $project, Mobile $mobile, Website $website, Country $country, Payment $p
         return $this->payment->where('paid', 0)->with(['user'])->get();
     }
 
+    public function isPaid($user_id){
+        $payment = $this->payment->where('user_id', $user_id)->first();
+        if($payment)
+            return $payment->paid;
+        return null;
+    }
+
     public function tapPayment($request)
     {
         $amount = $request['amount'];

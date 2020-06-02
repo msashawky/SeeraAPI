@@ -117,7 +117,7 @@ class AclRepository implements AclRepositoryInterface
             }
 
             $activationToken = $input = $this->userActivation->orderBy('id', 'DESC')->value('token');
-            $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="http://www.seeraonline.new/auth/user/activation/'.$activationToken.'">Activate</a>';
+            $message = '<p><strong>Welcome Seera</strong> ,please Activate your Account:</p>'.'<a href="http://seeraapi.seeraonline.net/auth/user/activation/'.$activationToken.'">Activate</a>';
             $headers = "Content-Type: text/html; charset=UTF-8\r\n";
 
 //            mail($request->email,"Seera - Activation Code", $message, $headers);

@@ -50,27 +50,51 @@ class InfoWebsiteRepository implements InfoWebsiteRepositoryInterface
     }
 
     public function updateContent(Request $request){
-//        $content = decodeUser($request->bearerToken());//dd($content);
-        return $this->infoWebsiteContent->where('id', 1)->update($request->all());
+        if($request->file('faviconimage')){
+            $photo =  upload_single_photo($request->file('faviconimage'),'images/upload_images/info_website/');
+            $request['favicon'] = 'public/images/upload_images/info_website/'.$photo;//dd($request['favicon_photo']);
+        }
+        if($request->file('logo_image')){
+            $logo =  upload_single_photo($request->file('logo_image'),'images/upload_images/info_website/');
+            $request['logo'] = 'public/images/upload_images/info_website/'.$logo;
+        }
+        $data = $this->infoWebsiteContent->find(1);
+        if($request['info_website_name_ar']!=null)$data->info_website_name_ar = $request['info_website_name_ar'];
+        if($request['info_website_name_en']!=null)$data->info_website_name_en = $request['info_website_name_en'];
+        if($request['info_website_url']!=null)$data->info_website_url = $request['info_website_url'];
+        if($request['logo']!=null)$data->logo = $request['logo'];
+        if($request['favicon']!=null)$data->favicon = $request['favicon'];
+        if($request['about_us_ar']!=null)$data->about_us_ar = $request['about_us_ar'];
+        if($request['about_us_en']!=null)$data->about_us_en = $request['about_us_en'];
+        if($request['terms_and_conditions_ar']!=null)$data->terms_and_conditions_ar = $request['terms_and_conditions_ar'];
+        if($request['terms_and_conditions_en']!=null)$data->terms_and_conditions_en = $request['terms_and_conditions_en'];
+        if($request['address_ar']!=null)$data->address_ar = $request['address_ar'];
+        if($request['address_en']!=null)$data->address_en = $request['address_en'];
+        if($request['phone_number']!=null)$data->phone_number = $request['phone_number'];
+        if($request['email']!=null)$data->email = $request['email'];
+        if($request['facebook']!=null)$data->facebook = $request['facebook'];
+        if($request['twitter']!=null)$data->twitter = $request['twitter'];
+        if($request['instagram']!=null)$data->instagram = $request['instagram'];
+        if($request['youtube']!=null)$data->youtube = $request['youtube'];
+        if($request['linkedin']!=null)$data->linkedin = $request['linkedin'];
+        return $data->save();
 //        return $this->infoWebsiteContent->where('id', 1)->update($request->all());
-//        dd($this->infoWebsiteContent->where('id', 1)->first());
-//        return $data->
     }
 
     public function validatecreateContent(Request $request){
         return $this->apiValidation($request, [
-            'info_website_name_ar' => 'required|min:3|max:100',
-            'info_website_name_en' => 'required|min:3|max:100',
-            'info_website_url' => 'required|min:3|max:100|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
-//            'logo' => 'mimes:jpeg,jpg,png,gif|required|max:2000',
-//            'favicon' => 'mimes:jpeg,jpg,png,gif,ico|required|max:2000',
-            'about_us_ar' => 'required|min:10|max:3000',
-            'about_us_en' => 'required|min:10|max:3000',
-            'terms_and_conditions_ar' => 'required|min:10|max:3000',
-            'terms_and_conditions_en' => 'required|min:10|max:3000',
-            'privacy_policy_ar' => 'required|min:10|max:3000',
-            'privacy_policy_en' => 'required|min:!0|max:3000',
-            'facebook' => 'required|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
+            'info_website_name_ar' => 'nullable|min:3|max:100',
+            'info_website_name_en' => 'nullable|min:3|max:100',
+            'info_website_url' => 'nullable|min:3|max:100|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            'logo' => 'nullable|mimes:jpeg,jpg,png,gif|max:2000',
+            'favicon_photo' => 'nullable|mimes:jpeg,jpg,png,gif,ico|max:2000',
+            'about_us_ar' => 'nullable|min:10|max:3000',
+            'about_us_en' => 'nullable|min:10|max:3000',
+            'terms_and_conditions_ar' => 'nullable|min:10|max:3000',
+            'terms_and_conditions_en' => 'nullable|min:10|max:3000',
+            'privacy_policy_ar' => 'nullable|min:10|max:3000',
+            'privacy_policy_en' => 'nullable|min:!0|max:3000',
+            'facebook' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)facebook\.com\/([a-zA-Z0-9_]*)$/',
             'twitter' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)twitter\.com\/([a-zA-Z0-9_]*)$/',
             'instagram' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)instagram\.com\/([a-zA-Z0-9_]*)$/',
             'youtube' => 'nullable|min:3|max:100|regex:/(https?:\/\/)?([\w\.]*)youtube\.com\/([a-zA-Z0-9_]*)$/',

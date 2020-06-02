@@ -17,7 +17,7 @@ class PaidClientResource extends JsonResource
             'paid_at' => $this->paid_at,
             'name_en' => $this->user->name_en,
             'name_ar' => $this->user->name_ar,
-            'domain' => $this->domain,
+            'domain' => $this->username,
             'userType' => $this->user->userType,
         ];
     }
