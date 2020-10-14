@@ -44,19 +44,6 @@ class InfoWebsiteController extends Controller
         }
     }
 
-    public function update(Request $request){
-        $validation = $this->infoWebsiteRepository->validatecreateContent($request);
-
-        if ($validation instanceof \Illuminate\Http\Response) {
-
-            return $validation;
-        }
-        if ($this->infoWebsiteRepository->updateContent($request))
-
-            return $this->apiResponse("updated successfully");
-
-        return $this->unKnowError("error while updating the content");
-    }
 
     public function websitesCount(){
         $count = $this->infoWebsiteRepository->getWebsitesCount();

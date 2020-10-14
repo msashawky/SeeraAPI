@@ -21,8 +21,7 @@ class InfoWebsiteRepository implements InfoWebsiteRepositoryInterface
 {
 
     use ApiResponseTrait;
-    //valid for one hour 60 * 60
-    static $offset = ((10 * 24) * (60 * 60));
+
     private $infoWebsiteContent;
     private $newsletter;
     private $website;
@@ -49,37 +48,6 @@ class InfoWebsiteRepository implements InfoWebsiteRepositoryInterface
         return $this->infoWebsiteContent->create($input);
     }
 
-    public function updateContent(Request $request){
-        if($request->file('faviconimage')){
-            $photo =  upload_single_photo($request->file('faviconimage'),'images/upload_images/info_website/');
-            $request['favicon'] = 'public/images/upload_images/info_website/'.$photo;//dd($request['favicon_photo']);
-        }
-        if($request->file('logo_image')){
-            $logo =  upload_single_photo($request->file('logo_image'),'images/upload_images/info_website/');
-            $request['logo'] = 'public/images/upload_images/info_website/'.$logo;
-        }
-        $data = $this->infoWebsiteContent->find(1);
-        if($request['info_website_name_ar']!=null)$data->info_website_name_ar = $request['info_website_name_ar'];
-        if($request['info_website_name_en']!=null)$data->info_website_name_en = $request['info_website_name_en'];
-        if($request['info_website_url']!=null)$data->info_website_url = $request['info_website_url'];
-        if($request['logo']!=null)$data->logo = $request['logo'];
-        if($request['favicon']!=null)$data->favicon = $request['favicon'];
-        if($request['about_us_ar']!=null)$data->about_us_ar = $request['about_us_ar'];
-        if($request['about_us_en']!=null)$data->about_us_en = $request['about_us_en'];
-        if($request['terms_and_conditions_ar']!=null)$data->terms_and_conditions_ar = $request['terms_and_conditions_ar'];
-        if($request['terms_and_conditions_en']!=null)$data->terms_and_conditions_en = $request['terms_and_conditions_en'];
-        if($request['address_ar']!=null)$data->address_ar = $request['address_ar'];
-        if($request['address_en']!=null)$data->address_en = $request['address_en'];
-        if($request['phone_number']!=null)$data->phone_number = $request['phone_number'];
-        if($request['email']!=null)$data->email = $request['email'];
-        if($request['facebook']!=null)$data->facebook = $request['facebook'];
-        if($request['twitter']!=null)$data->twitter = $request['twitter'];
-        if($request['instagram']!=null)$data->instagram = $request['instagram'];
-        if($request['youtube']!=null)$data->youtube = $request['youtube'];
-        if($request['linkedin']!=null)$data->linkedin = $request['linkedin'];
-        return $data->save();
-//        return $this->infoWebsiteContent->where('id', 1)->update($request->all());
-    }
 
     public function validatecreateContent(Request $request){
         return $this->apiValidation($request, [

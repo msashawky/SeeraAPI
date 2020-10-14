@@ -30,8 +30,7 @@ class PersonalWebsiteRepository
 {
 
     use ApiResponseTrait;
-    //valid for one hour 60 * 60
-    static $offset = ((10 * 24) * (60 * 60));
+
 
     private $user;
     private $career;
